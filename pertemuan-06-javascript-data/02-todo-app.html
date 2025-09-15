@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List App - Data Management</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .app-container {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        margin: 20px auto;
+        max-width: 1400px;
+        overflow: hidden;
+        min-height: calc(100vh - 40px);
+      }
+
+      .container-fluid {
+        padding: 0 !important;
+      }
+
+      .col-lg-4, .col-lg-8 {
+        padding: 20px;
+        min-height: 80vh;
+      }
+
+      .col-lg-4 {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-right: 1px solid #dee2e6;
+      }
+
+      .col-lg-8 {
+        background: #ffffff;
+      }
+
+      @media (max-width: 991.98px) {
+        .col-lg-4, .col-lg-8 {
+          min-height: auto;
+          padding: 15px;
+        }
+        
+        .col-lg-4 {
+          border-right: none;
+          border-bottom: 1px solid #dee2e6;
+        }
+      }
+
+      .app-header {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        color: white;
+        padding: 30px;
+        text-align: center;
+      }
+
+      .todo-section {
+        background: white;
+        border-radius: 15px;
+        margin: 15px 0;
+        padding: 25px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+      }
+
+      .todo-section:hover {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        transform: translateY(-2px);
+      }
+
+      /* Special styling for left panel sections */
+      .col-lg-4 .todo-section {
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      /* Special styling for right panel sections */
+      .col-lg-8 .todo-section {
+        background: #ffffff;
+        border: 1px solid #e9ecef;
+      }
+
+      .todo-item {
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        border: 1px solid #e9ecef;
+        border-radius: 15px;
+        padding: 20px;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+        position: relative;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      }
+
+      .todo-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        border-color: #4facfe;
+      }
+
+      .todo-item.completed {
+        background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+        opacity: 0.9;
+        border-color: #28a745;
+      }
+
+      .todo-item.completed .todo-text {
+        text-decoration: line-through;
+        color: #6c757d;
+      }
+
+      .todo-text {
+        flex: 1;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #2d3748;
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+
+      .todo-actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-top: 10px;
+      }
+
+      .todo-date {
+        font-size: 0.9rem;
+        color: #6c757d;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-bottom: 5px;
+      }
+
+      .todo-date i {
+        color: #4facfe;
+      }
+
+      .todo-item.high-priority {
+        border-left: 6px solid #dc3545;
+        background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+      }
+
+      .todo-item.medium-priority {
+        border-left: 6px solid #ffc107;
+        background: linear-gradient(135deg, #fffbf0 0%, #fef5e7 100%);
+      }
+
+      .todo-item.low-priority {
+        border-left: 6px solid #28a745;
+        background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);
+      }
+
+      .priority-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        border-radius: 20px;
+        padding: 5px 10px;
+        font-size: 0.75rem;
+        font-weight: bold;
+      }
+
+      .priority-high {
+        background: #dc3545;
+        color: white;
+      }
+
+      .priority-medium {
+        background: #ffc107;
+        color: #000;
+      }
+
+      .priority-low {
+        background: #28a745;
+        color: white;
+      }
+
+      .btn-round {
+        border-radius: 25px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: none;
+        padding: 12px 24px;
+      }
+
+      .btn-round:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        border: none;
+      }
+
+      .btn-primary:hover {
+        background: linear-gradient(135deg, #3d8bfe 0%, #0099ff 100%);
+      }
+
+      /* Enhanced Form Controls */
+      .form-control, .form-select {
+        border-radius: 12px;
+        border: 2px solid #e9ecef;
+        padding: 12px 16px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+      }
+
+      .form-control:focus, .form-select:focus {
+        border-color: #4facfe;
+        box-shadow: 0 0 0 0.2rem rgba(79, 172, 254, 0.25);
+        outline: none;
+      }
+
+      .form-label {
+        font-weight: 600;
+        color: #2d3748;
+        margin-bottom: 8px;
+      }
+
+      .form-text {
+        font-size: 12px;
+        color: #6c757d;
+        margin-top: 4px;
+      }
+
+      /* Stats Cards Enhancement */
+      .stats-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 15px;
+        padding: 20px;
+        text-align: center;
+        margin: 8px 0;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .stats-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+      }
+
+      .stats-card .h3 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+
+      .stats-card small {
+        font-size: 0.9rem;
+        opacity: 0.9;
+      }
+
+      .form-control {
+        border-radius: 12px;
+        border: 2px solid #e9ecef;
+        padding: 12px 16px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      }
+
+      .form-control:focus {
+        border-color: #4facfe;
+        box-shadow: 0 0 20px rgba(79, 172, 254, 0.3);
+        outline: none;
+        background: #ffffff;
+        transform: translateY(-1px);
+      }
+
+      .form-select {
+        border-radius: 12px;
+        border: 2px solid #e9ecef;
+        padding: 12px 16px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        cursor: pointer;
+      }
+
+      .form-select:focus {
+        border-color: #4facfe;
+        box-shadow: 0 0 20px rgba(79, 172, 254, 0.3);
+        outline: none;
+        background: #ffffff;
+      }
+
+      .form-label {
+        font-weight: 600;
+        color: #2d3748;
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .form-text {
+        font-size: 0.875rem;
+        color: #6c757d;
+        margin-top: 5px;
+        font-style: italic;
+      }
+
+      .search-box {
+        border-radius: 25px;
+        border: 2px solid #e9ecef;
+        padding: 12px 20px;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        position: relative;
+      }
+
+      .search-box:focus {
+        border-color: #4facfe;
+        box-shadow: 0 0 20px rgba(79, 172, 254, 0.3);
+        outline: none;
+        background: #ffffff;
+        transform: scale(1.02);
+      }
+
+      /* Enhanced Alert Styling */
+      .alert {
+        border: none;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .alert::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+      }
+
+      .alert h6 {
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #2d3748;
+      }
+
+      .alert-info {
+        background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        color: #0d47a1;
+        border-left: 4px solid #2196f3;
+      }
+
+      .alert-success {
+        background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+        color: #1b5e20;
+        border-left: 4px solid #4caf50;
+      }
+
+      .alert-warning {
+        background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+        color: #e65100;
+        border-left: 4px solid #ff9800;
+      }
+
+      .alert-primary {
+        background: linear-gradient(135deg, #e1f5fe 0%, #b3e5fc 100%);
+        color: #01579b;
+        border-left: 4px solid #03a9f4;
+      }
+
+      .alert-light {
+        background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+        color: #424242;
+        border-left: 4px solid #9e9e9e;
+      }
+
+      .category-filter {
+        background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+        border: none;
+        color: white;
+        border-radius: 20px;
+        margin: 3px;
+        padding: 8px 16px;
+        transition: all 0.3s ease;
+        font-size: 0.85rem;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      .category-filter:hover,
+      .category-filter.active {
+        background: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%);
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .export-section {
+        background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+        color: white;
+        border-radius: 15px;
+        padding: 20px;
+        margin: 20px 0;
+      }
+
+      .import-zone {
+        border: 3px dashed #6c757d;
+        border-radius: 15px;
+        padding: 30px;
+        text-align: center;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .import-zone::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(79, 172, 254, 0.1), transparent);
+        transition: left 0.5s ease;
+      }
+
+      .import-zone:hover::before {
+        left: 100%;
+      }
+
+      .import-zone.dragover {
+        border-color: #4facfe;
+        background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        transform: scale(1.02);
+        box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);
+      }
+
+      /* Loading Animations */
+      .loading-spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #4facfe;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-right: 10px;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      .fade-in {
+        animation: fadeIn 0.5s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .slide-in {
+        animation: slideIn 0.3s ease-out;
+      }
+
+      @keyframes slideIn {
+        from { transform: translateX(-100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+
+      .bounce-in {
+        animation: bounceIn 0.6s ease-out;
+      }
+
+      @keyframes bounceIn {
+        0% { transform: scale(0.3); opacity: 0; }
+        50% { transform: scale(1.05); }
+        70% { transform: scale(0.9); }
+        100% { transform: scale(1); opacity: 1; }
+      }
+
+      .pulse {
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+      }
+
+      @keyframes slideInRight {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+
+      .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1050;
+        min-width: 300px;
+        border-radius: 15px;
+        padding: 15px 20px;
+        font-weight: 600;
+        animation: slideInRight 0.3s ease;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+      }
+
+      @keyframes slideInRight {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      /* Responsive Design untuk Mobile */
+      @media (max-width: 768px) {
+        .app-container {
+          margin: 10px;
+          padding: 15px;
+          max-height: none;
+          min-height: calc(100vh - 20px);
+        }
+
+        .app-header h1 {
+          font-size: 2rem;
+        }
+
+        .app-header p {
+          font-size: 0.9rem;
+        }
+
+        .todo-section {
+          padding: 20px;
+          margin-bottom: 20px;
+        }
+
+        .todo-item {
+          padding: 15px;
+          margin: 10px 0;
+        }
+
+        .todo-text {
+          font-size: 1rem;
+          margin-bottom: 10px;
+        }
+
+        .todo-actions {
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+
+        .btn {
+          padding: 8px 16px;
+          font-size: 0.8rem;
+        }
+
+        .stats-card {
+          margin-bottom: 15px;
+        }
+
+        .stats-card h3 {
+          font-size: 1.5rem;
+        }
+
+        .category-filter {
+          padding: 8px 16px;
+          font-size: 0.8rem;
+          margin: 5px;
+        }
+
+        .notification {
+          right: 10px;
+          left: 10px;
+          top: 10px;
+          min-width: auto;
+          width: auto;
+        }
+
+        .form-control,
+        .form-select {
+          padding: 10px 12px;
+          font-size: 0.9rem;
+        }
+
+        .search-box {
+          padding: 10px 15px;
+          font-size: 1rem;
+        }
+
+        .import-zone {
+          padding: 20px;
+        }
+
+        .export-section {
+          padding: 15px;
+        }
+
+        .col-lg-4,
+        .col-lg-8 {
+          margin-bottom: 20px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .app-container {
+          margin: 5px;
+          padding: 10px;
+        }
+
+        .app-header h1 {
+          font-size: 1.8rem;
+        }
+
+        .todo-section {
+          padding: 15px;
+        }
+
+        .todo-item {
+          padding: 12px;
+        }
+
+        .btn {
+          padding: 6px 12px;
+          font-size: 0.75rem;
+        }
+
+        .stats-card h3 {
+          font-size: 1.2rem;
+        }
+
+        .stats-card p {
+          font-size: 0.8rem;
+        }
+      }
+
+      /* Print Styles */
+      @media print {
+        .app-container {
+          box-shadow: none;
+          background: white;
+          max-height: none;
+        }
+
+        .todo-section:first-child,
+        .category-filter,
+        .export-section,
+        .import-zone,
+        .btn,
+        .notification {
+          display: none;
+        }
+
+        .todo-item {
+          page-break-inside: avoid;
+          box-shadow: none;
+          border: 1px solid #ddd;
+        }
+
+        .todo-item:hover {
+          transform: none;
+        }
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Header -->
+      <div class="app-header">
+        <h1 class="display-4 mb-3">
+          <i class="fas fa-tasks me-3"></i>Manajer To-Do Pintar
+        </h1>
+        <p class="lead mb-0">Manajemen Tugas Lanjutan dengan Local Storage</p>
+        
+        <!-- Alert Penjelasan To-Do App -->
+        <div class="alert alert-light mt-4 text-start">
+          <h6><i class="fas fa-info-circle me-2"></i>Mengapa Aplikasi To-Do Penting untuk Belajar JavaScript?</h6>
+          <p class="mb-1">Aplikasi To-Do menggabungkan banyak konsep JavaScript penting:</p>
+          <ul class="mb-1">
+            <li><strong>DOM Manipulation:</strong> Menambah, hapus, edit elemen HTML secara dinamis</li>
+            <li><strong>Local Storage:</strong> Menyimpan data di browser tanpa database</li>
+            <li><strong>Event Handling:</strong> Menangani klik, submit form, keyboard events</li>
+            <li><strong>Array Methods:</strong> Filter, sort, map data untuk fitur pencarian dan kategori</li>
+            <li><strong>Object Management:</strong> Struktur data untuk menyimpan informasi tugas</li>
+          </ul>
+          <p class="mb-0">Ini adalah contoh aplikasi real-world yang bisa langsung digunakan!</p>
+        </div>
+      </div>
+
+      <div class="container-fluid p-0">
+        <div class="row g-0">
+          <!-- Left Panel - Add & Filters -->
+          <div class="col-lg-4">
+            <!-- Add New Todo -->
+            <div class="todo-section">
+              <h3 class="text-primary mb-4">
+                <i class="fas fa-plus-circle me-2"></i>Tambah Tugas Baru
+              </h3>
+              
+              <!-- Alert Penjelasan Form Input -->
+              <div class="alert alert-info mb-4">
+                <h6><i class="fas fa-lightbulb me-2"></i>Kenapa Form Input Penting?</h6>
+                <p class="mb-1">Form adalah cara utama user berinteraksi dengan aplikasi:</p>
+                <ul class="mb-1">
+                  <li><strong>Validation:</strong> Memastikan data yang masuk sesuai format</li>
+                  <li><strong>User Experience:</strong> Interface yang intuitif dan mudah digunakan</li>
+                  <li><strong>Data Structure:</strong> Mengorganisir informasi menjadi object JavaScript</li>
+                </ul>
+                <p class="mb-0">Setiap field memiliki tujuan spesifik untuk membuat tugas yang terorganisir.</p>
+              </div>
+
+              <form id="todoForm">
+                <div class="mb-3">
+                  <label for="todoTitle" class="form-label">Judul Tugas</label>
+                  <input
+                    type="text"
+                    class="form-control search-box"
+                    id="todoTitle"
+                    placeholder="Masukkan judul tugas..."
+                    required
+                  />
+                  <small class="form-text text-muted">Judul yang jelas membantu mengidentifikasi tugas dengan cepat</small>
+                </div>
+
+                <div class="mb-3">
+                  <label for="todoDescription" class="form-label"
+                    >Deskripsi</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="todoDescription"
+                    rows="3"
+                    placeholder="Deskripsi tugas..."
+                  ></textarea>
+                  <small class="form-text text-muted">Detail tambahan tentang apa yang harus dikerjakan</small>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+                    <label for="todoPriority" class="form-label"
+                      >Prioritas</label
+                    >
+                    <select class="form-select" id="todoPriority">
+                      <option value="low">Rendah</option>
+                      <option value="medium" selected>Sedang</option>
+                      <option value="high">Tinggi</option>
+                    </select>
+                    <small class="form-text text-muted">Menentukan urutan pentingnya tugas</small>
+                  </div>
+                  <div class="col-6">
+                    <label for="todoCategory" class="form-label"
+                      >Kategori</label
+                    >
+                    <select class="form-select" id="todoCategory">
+                      <option value="personal">Pribadi</option>
+                      <option value="work">Pekerjaan</option>
+                      <option value="shopping">Belanja</option>
+                      <option value="health">Kesehatan</option>
+                      <option value="study">Belajar</option>
+                      <option value="other">Lainnya</option>
+                    </select>
+                    <small class="form-text text-muted">Kelompokkan tugas berdasarkan jenis</small>
+                  </div>
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-6">
+                    <label for="todoDueDate" class="form-label">Tanggal Deadline</label>
+                    <input type="date" class="form-control" id="todoDueDate" />
+                    <small class="form-text text-muted">Kapan tugas harus selesai</small>
+                  </div>
+                  <div class="col-6">
+                    <label for="todoTime" class="form-label">Waktu</label>
+                    <input type="time" class="form-control" id="todoTime" />
+                    <small class="form-text text-muted">Jam deadline (opsional)</small>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-round w-100 mt-4"
+                >
+                  <i class="fas fa-plus me-2"></i>Tambah Tugas
+                </button>
+              </form>
+            </div>
+
+            <!-- Statistics -->
+            <div class="todo-section">
+              <h4 class="text-primary mb-3">
+                <i class="fas fa-chart-bar me-2"></i>Statistik
+              </h4>
+              
+              <!-- Alert Penjelasan Statistik -->
+              <div class="alert alert-success mb-3">
+                <h6><i class="fas fa-chart-line me-2"></i>Mengapa Statistik Penting?</h6>
+                <p class="mb-1">Statistik membantu memantau produktivitas:</p>
+                <ul class="mb-1">
+                  <li><strong>Total Tasks:</strong> Berapa banyak tugas yang telah dibuat</li>
+                  <li><strong>Completed:</strong> Seberapa produktif kita</li>
+                  <li><strong>Pending:</strong> Tugas yang masih harus dikerjakan</li>
+                  <li><strong>Overdue:</strong> Tugas yang terlewat deadline</li>
+                </ul>
+                <p class="mb-0">Data ini dihitung secara real-time menggunakan JavaScript array methods.</p>
+              </div>
+
+              <div class="row">
+                <div class="col-6">
+                  <div class="stats-card">
+                    <div class="h3" id="totalTasks">0</div>
+                    <small>Total Tugas</small>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="stats-card">
+                    <div class="h3" id="completedTasks">0</div>
+                    <small>Selesai</small>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="stats-card">
+                    <div class="h3" id="pendingTasks">0</div>
+                    <small>Pending</small>
+                  </div>
+                </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="stats-card">
+                    <div class="h3" id="overdueTasks">0</div>
+                    <small>Terlambat</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Data Management -->
+            <div class="export-section">
+              <h4 class="mb-3">
+                <i class="fas fa-database me-2"></i>Manajemen Data
+              </h4>
+              
+              <!-- Alert Penjelasan Data Management -->
+              <div class="alert alert-light mb-3">
+                <h6><i class="fas fa-cogs me-2"></i>Mengapa Perlu Data Management?</h6>
+                <p class="mb-1">Fitur untuk mengelola data dengan aman:</p>
+                <ul class="mb-1">
+                  <li><strong>Export:</strong> Backup data dalam format JSON</li>
+                  <li><strong>Import:</strong> Restore data dari file backup</li>
+                  <li><strong>Clear All:</strong> Reset aplikasi (hati-hati!)</li>
+                  <li><strong>Sample Data:</strong> Data contoh untuk testing</li>
+                </ul>
+                <p class="mb-0">JSON adalah format standar untuk pertukaran data di web.</p>
+              </div>
+
+              <div class="d-grid gap-2">
+                <button class="btn btn-light btn-round" onclick="exportTodos()">
+                  <i class="fas fa-download me-2"></i>Export Data
+                </button>
+                <button
+                  class="btn btn-light btn-round"
+                  onclick="clearAllTodos()"
+                >
+                  <i class="fas fa-trash me-2"></i>Hapus Semua
+                </button>
+                <button
+                  class="btn btn-light btn-round"
+                  onclick="generateSampleData()"
+                >
+                  <i class="fas fa-magic me-2"></i>Generate Data Contoh
+                </button>
+              </div>
+
+              <div
+                class="import-zone mt-3"
+                onclick="document.getElementById('fileImport').click()"
+                ondragover="handleDragOver(event)"
+                ondrop="handleDrop(event)"
+              >
+                <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
+                <p class="mb-0">Klik atau drag file JSON untuk import</p>
+                <small class="text-muted">Drag & Drop menggunakan HTML5 File API</small>
+                <input
+                  type="file"
+                  id="fileImport"
+                  accept=".json"
+                  style="display: none"
+                  onchange="importTodos(event)"
+                />
+              >
+                <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
+                <p class="mb-0">Click or drag JSON file to import</p>
+                <input
+                  type="file"
+                  id="fileImport"
+                  accept=".json"
+                  style="display: none"
+                  onchange="importTodos(event)"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Panel - Todo List -->
+          <div class="col-lg-8">
+            <!-- Search and Filters -->
+            <div class="todo-section">
+              <!-- Alert Penjelasan Search & Filter -->
+              <div class="alert alert-warning mb-4">
+                <h6><i class="fas fa-filter me-2"></i>Mengapa Perlu Search & Filter?</h6>
+                <p class="mb-1">Ketika tugas banyak, kita perlu cara untuk menemukan tugas tertentu:</p>
+                <ul class="mb-1">
+                  <li><strong>Search:</strong> Cari berdasarkan judul/deskripsi menggunakan string methods</li>
+                  <li><strong>Category Filter:</strong> Kelompokkan tugas berdasarkan jenis</li>
+                  <li><strong>Sort:</strong> Urutkan berdasarkan prioritas, tanggal, atau alfabet</li>
+                  <li><strong>Status Filter:</strong> Lihat tugas yang pending/selesai/terlambat</li>
+                </ul>
+                <p class="mb-0">Ini mendemonstrasikan penggunaan array methods: filter(), sort(), includes().</p>
+              </div>
+              
+              <div class="row align-items-center">
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="fas fa-search"></i>
+                    </span>
+                    <input
+                      type="text"
+                      class="form-control search-box"
+                      id="searchInput"
+                      placeholder="Cari tugas..."
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="d-flex justify-content-end flex-wrap">
+                    <button class="category-filter active" data-category="all">
+                      Semua
+                    </button>
+                    <button class="category-filter" data-category="personal">
+                      Pribadi
+                    </button>
+                    <button class="category-filter" data-category="work">
+                      Pekerjaan
+                    </button>
+                    <button class="category-filter" data-category="shopping">
+                      Belanja
+                    </button>
+                    <button class="category-filter" data-category="health">
+                      Kesehatan
+                    </button>
+                    <button class="category-filter" data-category="study">
+                      Belajar
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-md-6">
+                  <select class="form-select" id="sortFilter">
+                    <option value="newest">Urutkan: Terbaru Dulu</option>
+                    <option value="oldest">Urutkan: Terlama Dulu</option>
+                    <option value="priority">Urutkan: Prioritas</option>
+                    <option value="duedate">Urutkan: Tanggal Deadline</option>
+                    <option value="alphabetical">Urutkan: A-Z</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <select class="form-select" id="statusFilter">
+                    <option value="all">Semua Status</option>
+                    <option value="pending">Hanya Pending</option>
+                    <option value="completed">Hanya Selesai</option>
+                    <option value="overdue">Hanya Terlambat</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Todo List -->
+            <div class="todo-section">
+              <h3 class="text-primary mb-4">
+                <i class="fas fa-list me-2"></i>Daftar Tugas Anda
+                <span class="badge bg-primary" id="taskCount">0</span>
+              </h3>
+              
+              <!-- Alert Penjelasan Dynamic Content -->
+              <div class="alert alert-primary mb-4">
+                <h6><i class="fas fa-code me-2"></i>Bagaimana Daftar Tugas Bekerja?</h6>
+                <p class="mb-1">Daftar tugas ini adalah contoh <strong>Dynamic Content</strong>:</p>
+                <ul class="mb-1">
+                  <li><strong>DOM Manipulation:</strong> Tugas ditambah/hapus dari HTML secara real-time</li>
+                  <li><strong>Event Delegation:</strong> Satu event listener menangani semua tombol</li>
+                  <li><strong>Template Literals:</strong> HTML dibuat dinamis dengan JavaScript</li>
+                  <li><strong>Conditional Rendering:</strong> Tampilan berubah sesuai status tugas</li>
+                </ul>
+                <p class="mb-0">Setiap perubahan langsung tersimpan di Local Storage browser.</p>
+              </div>
+
+              <div id="todoList">
+                <div class="text-center text-muted py-5">
+                  <i class="fas fa-clipboard-list fa-3x mb-3"></i>
+                  <h5>Belum ada tugas</h5>
+                  <p>Tambahkan tugas pertama Anda untuk memulai!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      class TodoManager {
+        constructor() {
+          this.todos = this.loadTodos();
+          this.currentFilter = "all";
+          this.currentSort = "newest";
+          this.currentStatus = "all";
+          this.searchTerm = "";
+
+          this.initEventListeners();
+          this.renderTodos();
+          this.updateStats();
+        }
+
+        // =============================================================================
+        // DATA MANAGEMENT
+        // =============================================================================
+        loadTodos() {
+          try {
+            const stored = localStorage.getItem("todos");
+            return stored ? JSON.parse(stored) : [];
+          } catch (error) {
+            console.error("Error loading todos:", error);
+            return [];
+          }
+        }
+
+        saveTodos() {
+          try {
+            localStorage.setItem("todos", JSON.stringify(this.todos));
+            this.updateStats();
+          } catch (error) {
+            console.error("Error saving todos:", error);
+            this.showNotification("Error saving data!", "danger");
+          }
+        }
+
+        generateId() {
+          return Date.now().toString(36) + Math.random().toString(36).substr(2);
+        }
+
+        // =============================================================================
+        // TODO OPERATIONS
+        // =============================================================================
+        addTodo(todoData) {
+          const todo = {
+            id: this.generateId(),
+            title: todoData.title.trim(),
+            description: todoData.description.trim(),
+            priority: todoData.priority,
+            category: todoData.category,
+            dueDate: todoData.dueDate,
+            time: todoData.time,
+            completed: false,
+            createdAt: new Date().toISOString(),
+            completedAt: null,
+          };
+
+          this.todos.unshift(todo);
+          this.saveTodos();
+          this.renderTodos();
+          this.showNotification("Tugas berhasil ditambahkan!", "success");
+
+          // Reset form
+          document.getElementById("todoForm").reset();
+        }
+
+        toggleTodo(id) {
+          const todo = this.todos.find((t) => t.id === id);
+          if (todo) {
+            todo.completed = !todo.completed;
+            todo.completedAt = todo.completed ? new Date().toISOString() : null;
+            this.saveTodos();
+            this.renderTodos();
+
+            const message = todo.completed
+              ? "Task completed!"
+              : "Task marked as pending";
+            this.showNotification(message, "info");
+          }
+        }
+
+        deleteTodo(id) {
+          if (confirm("Apakah Anda yakin ingin menghapus tugas ini?")) {
+            this.todos = this.todos.filter((t) => t.id !== id);
+            this.saveTodos();
+            this.renderTodos();
+            this.showNotification("Tugas berhasil dihapus!", "warning");
+          }
+        }
+
+        editTodo(id) {
+          const todo = this.todos.find((t) => t.id === id);
+          if (todo) {
+            // Fill form with existing data
+            document.getElementById("todoTitle").value = todo.title;
+            document.getElementById("todoDescription").value = todo.description;
+            document.getElementById("todoPriority").value = todo.priority;
+            document.getElementById("todoCategory").value = todo.category;
+            document.getElementById("todoDueDate").value = todo.dueDate;
+            document.getElementById("todoTime").value = todo.time;
+
+            // Remove the old todo
+            this.deleteTodo(id);
+
+            // Scroll to form
+            document
+              .getElementById("todoForm")
+              .scrollIntoView({ behavior: "smooth" });
+          }
+        }
+
+        // =============================================================================
+        // FILTERING AND SORTING
+        // =============================================================================
+        getFilteredTodos() {
+          let filtered = [...this.todos];
+
+          // Search filter
+          if (this.searchTerm) {
+            filtered = filtered.filter(
+              (todo) =>
+                todo.title
+                  .toLowerCase()
+                  .includes(this.searchTerm.toLowerCase()) ||
+                todo.description
+                  .toLowerCase()
+                  .includes(this.searchTerm.toLowerCase())
+            );
+          }
+
+          // Category filter
+          if (this.currentFilter !== "all") {
+            filtered = filtered.filter(
+              (todo) => todo.category === this.currentFilter
+            );
+          }
+
+          // Status filter
+          if (this.currentStatus === "completed") {
+            filtered = filtered.filter((todo) => todo.completed);
+          } else if (this.currentStatus === "pending") {
+            filtered = filtered.filter((todo) => !todo.completed);
+          } else if (this.currentStatus === "overdue") {
+            filtered = filtered.filter(
+              (todo) => this.isOverdue(todo) && !todo.completed
+            );
+          }
+
+          // Sorting
+          filtered.sort((a, b) => {
+            switch (this.currentSort) {
+              case "oldest":
+                return new Date(a.createdAt) - new Date(b.createdAt);
+              case "priority":
+                const priorityOrder = { high: 3, medium: 2, low: 1 };
+                return priorityOrder[b.priority] - priorityOrder[a.priority];
+              case "duedate":
+                if (!a.dueDate && !b.dueDate) return 0;
+                if (!a.dueDate) return 1;
+                if (!b.dueDate) return -1;
+                return new Date(a.dueDate) - new Date(b.dueDate);
+              case "alphabetical":
+                return a.title.localeCompare(b.title);
+              default: // newest
+                return new Date(b.createdAt) - new Date(a.createdAt);
+            }
+          });
+
+          return filtered;
+        }
+
+        isOverdue(todo) {
+          if (!todo.dueDate) return false;
+          const today = new Date();
+          const dueDate = new Date(todo.dueDate);
+          return dueDate < today && !todo.completed;
+        }
+
+        // =============================================================================
+        // RENDERING
+        // =============================================================================
+        renderTodos() {
+          const todoList = document.getElementById("todoList");
+          const filteredTodos = this.getFilteredTodos();
+
+          document.getElementById("taskCount").textContent =
+            filteredTodos.length;
+
+          if (filteredTodos.length === 0) {
+            todoList.innerHTML = `
+                        <div class="text-center text-muted py-5">
+                            <i class="fas fa-search fa-3x mb-3"></i>
+                            <h5>No tasks found</h5>
+                            <p>Try adjusting your filters or add a new task</p>
+                        </div>
+                    `;
+            return;
+          }
+
+          todoList.innerHTML = filteredTodos
+            .map((todo) => this.createTodoHTML(todo))
+            .join("");
+        }
+
+        createTodoHTML(todo) {
+          const isOverdue = this.isOverdue(todo);
+          const priorityClass = `${todo.priority}-priority`;
+          const completedClass = todo.completed ? "completed" : "";
+          const overdueClass = isOverdue ? "border-danger" : "";
+
+          return `
+                    <div class="todo-item ${priorityClass} ${completedClass} ${overdueClass}">
+                        <div class="priority-badge priority-${todo.priority}">
+                            ${todo.priority.toUpperCase()}
+                        </div>
+                        
+                        <div class="d-flex align-items-start">
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="checkbox" 
+                                       ${todo.completed ? "checked" : ""} 
+                                       onchange="todoManager.toggleTodo('${
+                                         todo.id
+                                       }')">
+                            </div>
+                            
+                            <div class="flex-grow-1">
+                                <h5 class="todo-text mb-2">${todo.title}</h5>
+                                ${
+                                  todo.description
+                                    ? `<p class="text-muted mb-2">${todo.description}</p>`
+                                    : ""
+                                }
+                                
+                                <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+                                    <span class="badge bg-secondary">
+                                        <i class="fas fa-tag me-1"></i>${
+                                          todo.category
+                                        }
+                                    </span>
+                                    
+                                    ${
+                                      todo.dueDate
+                                        ? `
+                                        <span class="badge ${
+                                          isOverdue ? "bg-danger" : "bg-info"
+                                        }">
+                                            <i class="fas fa-calendar me-1"></i>
+                                            ${this.formatDate(todo.dueDate)}
+                                            ${todo.time ? ` ${todo.time}` : ""}
+                                        </span>
+                                    `
+                                        : ""
+                                    }
+                                    
+                                    ${
+                                      isOverdue
+                                        ? '<span class="badge bg-danger">OVERDUE</span>'
+                                        : ""
+                                    }
+                                </div>
+                                
+                                <small class="text-muted">
+                                    Created: ${this.formatDateTime(
+                                      todo.createdAt
+                                    )}
+                                    ${
+                                      todo.completedAt
+                                        ? ` • Completed: ${this.formatDateTime(
+                                            todo.completedAt
+                                          )}`
+                                        : ""
+                                    }
+                                </small>
+                            </div>
+                            
+                            <div class="dropdown">
+                                <button class="btn btn-outline-secondary btn-sm dropdown-toggle" 
+                                        data-bs-toggle="dropdown">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item" href="#" onclick="todoManager.editTodo('${
+                                          todo.id
+                                        }')">
+                                            <i class="fas fa-edit me-2"></i>Edit
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item text-danger" href="#" onclick="todoManager.deleteTodo('${
+                                          todo.id
+                                        }')">
+                                            <i class="fas fa-trash me-2"></i>Delete
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `;
+        }
+
+        updateStats() {
+          const total = this.todos.length;
+          const completed = this.todos.filter((t) => t.completed).length;
+          const pending = total - completed;
+          const overdue = this.todos.filter((t) => this.isOverdue(t)).length;
+
+          document.getElementById("totalTasks").textContent = total;
+          document.getElementById("completedTasks").textContent = completed;
+          document.getElementById("pendingTasks").textContent = pending;
+          document.getElementById("overdueTasks").textContent = overdue;
+        }
+
+        // =============================================================================
+        // IMPORT/EXPORT
+        // =============================================================================
+        exportTodos() {
+          const data = {
+            todos: this.todos,
+            exportDate: new Date().toISOString(),
+            version: "1.0",
+          };
+
+          const blob = new Blob([JSON.stringify(data, null, 2)], {
+            type: "application/json",
+          });
+          const url = URL.createObjectURL(blob);
+
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = `todos-backup-${
+            new Date().toISOString().split("T")[0]
+          }.json`;
+          link.click();
+
+          URL.revokeObjectURL(url);
+          this.showNotification("Data berhasil diekspor!", "success");
+        }
+
+        importTodos(file) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            try {
+              const data = JSON.parse(e.target.result);
+
+              if (data.todos && Array.isArray(data.todos)) {
+                if (
+                  confirm(
+                    `Import ${data.todos.length} tasks? This will replace your current data.`
+                  )
+                ) {
+                  this.todos = data.todos;
+                  this.saveTodos();
+                  this.renderTodos();
+                  this.showNotification(
+                    "Data berhasil diimpor!",
+                    "success"
+                  );
+                }
+              } else {
+                throw new Error("Invalid file format");
+              }
+            } catch (error) {
+              this.showNotification(
+                "Error importing file: " + error.message,
+                "danger"
+              );
+            }
+          };
+          reader.readAsText(file);
+        }
+
+        generateSampleData() {
+          if (confirm("Generate data contoh todo? Ini akan menambahkan tugas demo.")) {
+            const sampleTodos = [
+              {
+                title: "Complete Web Development Project",
+                description:
+                  "Finish the final project for the web development course",
+                priority: "high",
+                category: "study",
+                dueDate: "2024-12-30",
+                time: "23:59",
+              },
+              {
+                title: "Buy Groceries",
+                description: "Milk, bread, eggs, vegetables",
+                priority: "medium",
+                category: "shopping",
+                dueDate: "2024-12-20",
+                time: "18:00",
+              },
+              {
+                title: "Exercise",
+                description: "30 minutes cardio workout",
+                priority: "low",
+                category: "health",
+                dueDate: "",
+                time: "",
+              },
+              {
+                title: "Team Meeting",
+                description: "Weekly team sync and project updates",
+                priority: "high",
+                category: "work",
+                dueDate: "2024-12-25",
+                time: "09:00",
+              },
+              {
+                title: "Read Programming Book",
+                description: "Chapter 5-7 of JavaScript Advanced Concepts",
+                priority: "medium",
+                category: "study",
+                dueDate: "",
+                time: "",
+              },
+            ];
+
+            sampleTodos.forEach((todoData) => this.addTodo(todoData));
+            this.showNotification("Sample data generated!", "info");
+          }
+        }
+
+        clearAllTodos() {
+          if (
+            confirm(
+              "Apakah Anda yakin ingin menghapus SEMUA tugas? Ini tidak dapat dibatalkan."
+            )
+          ) {
+            this.todos = [];
+            this.saveTodos();
+            this.renderTodos();
+            this.showNotification("Semua tugas telah dihapus!", "warning");
+          }
+        }
+
+        // =============================================================================
+        // EVENT LISTENERS
+        // =============================================================================
+        initEventListeners() {
+          // Form submission
+          document
+            .getElementById("todoForm")
+            .addEventListener("submit", (e) => {
+              e.preventDefault();
+
+              const formData = new FormData(e.target);
+              const todoData = {
+                title: document.getElementById("todoTitle").value,
+                description: document.getElementById("todoDescription").value,
+                priority: document.getElementById("todoPriority").value,
+                category: document.getElementById("todoCategory").value,
+                dueDate: document.getElementById("todoDueDate").value,
+                time: document.getElementById("todoTime").value,
+              };
+
+              if (todoData.title.trim()) {
+                this.addTodo(todoData);
+              }
+            });
+
+          // Search
+          document
+            .getElementById("searchInput")
+            .addEventListener("input", (e) => {
+              this.searchTerm = e.target.value;
+              this.renderTodos();
+            });
+
+          // Category filters
+          document.querySelectorAll(".category-filter").forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+              document
+                .querySelectorAll(".category-filter")
+                .forEach((b) => b.classList.remove("active"));
+              e.target.classList.add("active");
+              this.currentFilter = e.target.dataset.category;
+              this.renderTodos();
+            });
+          });
+
+          // Sort filter
+          document
+            .getElementById("sortFilter")
+            .addEventListener("change", (e) => {
+              this.currentSort = e.target.value;
+              this.renderTodos();
+            });
+
+          // Status filter
+          document
+            .getElementById("statusFilter")
+            .addEventListener("change", (e) => {
+              this.currentStatus = e.target.value;
+              this.renderTodos();
+            });
+
+          // File import
+          document
+            .getElementById("fileImport")
+            .addEventListener("change", (e) => {
+              if (e.target.files[0]) {
+                this.importTodos(e.target.files[0]);
+                e.target.value = ""; // Reset file input
+              }
+            });
+        }
+
+        // =============================================================================
+        // UTILITY FUNCTIONS
+        // =============================================================================
+        formatDate(dateString) {
+          const date = new Date(dateString);
+          return date.toLocaleDateString("id-ID", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          });
+        }
+
+        formatDateTime(isoString) {
+          const date = new Date(isoString);
+          return date.toLocaleString("id-ID", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+        }
+
+        showNotification(message, type) {
+          const notification = document.createElement("div");
+          notification.className = `notification alert alert-${type} alert-dismissible fade show`;
+          notification.innerHTML = `
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
+
+          document.body.appendChild(notification);
+
+          setTimeout(() => {
+            if (notification.parentNode) {
+              notification.remove();
+            }
+          }, 4000);
+        }
+      }
+
+      // =============================================================================
+      // DRAG AND DROP HANDLERS
+      // =============================================================================
+      function handleDragOver(e) {
+        e.preventDefault();
+        e.currentTarget.classList.add("dragover");
+      }
+
+      function handleDrop(e) {
+        e.preventDefault();
+        e.currentTarget.classList.remove("dragover");
+
+        const files = e.dataTransfer.files;
+        if (files.length > 0 && files[0].type === "application/json") {
+          todoManager.importTodos(files[0]);
+        } else {
+          todoManager.showNotification(
+            "Please drop a valid JSON file",
+            "warning"
+          );
+        }
+      }
+
+      // Remove dragover class when leaving
+      document.addEventListener("dragleave", (e) => {
+        if (e.target.classList.contains("import-zone")) {
+          e.target.classList.remove("dragover");
+        }
+      });
+
+      // =============================================================================
+      // GLOBAL FUNCTIONS FOR EXPORTS
+      // =============================================================================
+      function exportTodos() {
+        todoManager.exportTodos();
+      }
+
+      function clearAllTodos() {
+        todoManager.clearAllTodos();
+      }
+
+      function generateSampleData() {
+        todoManager.generateSampleData();
+      }
+
+      function importTodos(event) {
+        if (event.target.files[0]) {
+          todoManager.importTodos(event.target.files[0]);
+          event.target.value = "";
+        }
+      }
+
+      // =============================================================================
+      // INITIALIZE APPLICATION
+      // =============================================================================
+      let todoManager;
+
+      document.addEventListener("DOMContentLoaded", function () {
+        todoManager = new TodoManager();
+
+        // Set minimum date for due date to today
+        const today = new Date().toISOString().split("T")[0];
+        document.getElementById("todoDueDate").min = today;
+
+        console.log("📝 Todo Manager initialized!");
+        console.log(
+          "Features: Local Storage, Search, Filter, Export/Import, Drag & Drop"
+        );
+      });
+    </script>
+  </body>
+</html>

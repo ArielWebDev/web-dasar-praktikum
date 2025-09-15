@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tailwind CSS - Komponen & Utility Lanjutan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <div class="container mx-auto p-8">
+        <h1 class="text-4xl font-bold text-center text-teal-700 mb-8">Komponen & Utility Lanjutan dengan Tailwind</h1>
+
+        <!-- Section 1: Komponen Card -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4">1. Komponen Card</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Basic Card -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://source.unsplash.com/random/400x200?nature" alt="Nature" class="w-full h-32 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Card Title</h3>
+                        <p class="text-gray-600">Ini adalah contoh card dasar yang dibuat dengan utility classes Tailwind.</p>
+                        <button class="mt-4 bg-teal-500 text-white py-2 px-4 rounded-lg hover:bg-teal-600">Read More</button>
+                    </div>
+                </div>
+                <!-- Profile Card -->
+                <div class="bg-white rounded-lg shadow-lg text-center p-6">
+                    <img src="https://source.unsplash.com/random/100x100?person" alt="Person" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-teal-400">
+                    <h3 class="text-xl font-bold text-gray-800">Ariel WebDev</h3>
+                    <p class="text-gray-500">Web Developer</p>
+                </div>
+                <!-- Card with Action -->
+                <div class="bg-white rounded-lg shadow-md">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Pengaturan Notifikasi</h3>
+                        <p class="text-gray-600 mb-4">Atur preferensi notifikasi email Anda.</p>
+                        <div class="flex justify-end">
+                            <button class="text-gray-500 hover:text-gray-700 mr-4">Nanti</button>
+                            <button class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Komponen Form -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4">2. Komponen Form</h2>
+            <div class="bg-white p-8 rounded-lg shadow-md max-w-lg mx-auto">
+                <form>
+                    <div class="mb-4">
+                        <label for="name" class="block text-gray-700 font-bold mb-2">Nama</label>
+                        <input type="text" id="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-teal-500" placeholder="Masukkan nama Anda">
+                    </div>
+                    <div class="mb-6">
+                        <label for="password" class="block text-gray-700 font-bold mb-2">Password</label>
+                        <input type="password" id="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline focus:border-teal-500" placeholder="******************">
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <button class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                            Sign In
+                        </button>
+                        <a class="inline-block align-baseline font-bold text-sm text-teal-500 hover:text-teal-800" href="#">
+                            Lupa Password?
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Section 3: Komponen Alert -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4">3. Komponen Alert</h2>
+            <div class="space-y-4">
+                <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4" role="alert">
+                    <p><span class="font-bold">Info:</span> Ini adalah notifikasi informasi.</p>
+                </div>
+                <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4" role="alert">
+                    <p><span class="font-bold">Sukses:</span> Operasi berhasil diselesaikan.</p>
+                </div>
+                <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4" role="alert">
+                    <p><span class="font-bold">Peringatan:</span> Harap periksa kembali input Anda.</p>
+                </div>
+                <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4" role="alert">
+                    <p><span class="font-bold">Error:</span> Terjadi kesalahan saat memproses data.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>

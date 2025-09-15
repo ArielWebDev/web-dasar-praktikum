@@ -18,12 +18,12 @@ Repository ini berisi materi pembelajaran web development dasar yang disusun sec
 - Box model dan layout dasar
 - **Status**: Coming Soon
 
-### 🔄 Pertemuan 3 - Bootstrap Grid
-- Bootstrap CDN
-- Grid system
-- Bootstrap components
-- Bootstrap utilities
-- **Status**: Coming Soon
+### ✅ Pertemuan 3 - Bootstrap vs Tailwind
+- Bootstrap CDN & Grid System
+- Tailwind CSS CDN & Utility-First
+- Perbandingan Komponen & Layout
+- Studi Kasus: Bootstrap & Tailwind
+- **Status**: Tersedia
 
 ### 🔄 Pertemuan 4 - JavaScript DOM
 - Pengenalan JavaScript

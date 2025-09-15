@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Selector</title>
+    <link rel="stylesheet" href="02-selector.css" />
+  </head>
+  <body>
+    <h1>Belajar CSS Selector</h1>
+
+    <!-- Element Selector -->
+    <p>Ini adalah paragraf biasa yang menggunakan element selector.</p>
+
+    <!-- Class Selector -->
+    <p class="highlight">Paragraf ini menggunakan class "highlight".</p>
+    <p class="warning">Paragraf ini menggunakan class "warning".</p>
+    <p class="highlight">Paragraf lain dengan class "highlight" yang sama.</p>
+
+    <!-- ID Selector -->
+    <p id="special">
+      Paragraf ini menggunakan ID "special" (hanya boleh satu).
+    </p>
+
+    <!-- Multiple Classes -->
+    <p class="highlight border">
+      Paragraf dengan dua class: "highlight" dan "border".
+    </p>
+
+    <!-- Descendant Selector -->
+    <div class="container">
+      <h2>Heading di dalam container</h2>
+      <p>Paragraf di dalam container.</p>
+      <div class="inner">
+        <p>Paragraf di dalam inner container.</p>
+      </div>
+    </div>
+
+    <!-- Child Selector -->
+    <ul class="menu">
+      <li>
+        Menu Item 1
+        <ul>
+          <li>Sub Menu 1</li>
+          <li>Sub Menu 2</li>
+        </ul>
+      </li>
+      <li>Menu Item 2</li>
+      <li>Menu Item 3</li>
+    </ul>
+
+    <!-- Pseudo-class Selector -->
+    <div class="links">
+      <h3>Link Examples</h3>
+      <a href="#link1">Link Normal</a>
+      <a href="#link2">Link Kedua</a>
+      <a href="#link3">Link Ketiga</a>
+    </div>
+
+    <!-- Attribute Selector -->
+    <div class="forms">
+      <h3>Form Elements</h3>
+      <input type="text" placeholder="Text Input" />
+      <input type="email" placeholder="Email Input" />
+      <input type="password" placeholder="Password Input" />
+      <button type="button">Button</button>
+    </div>
+
+    <!-- Grouping Selector -->
+    <h4>Heading 4</h4>
+    <h5>Heading 5</h5>
+    <h6>Heading 6</h6>
+  </body>
+</html>

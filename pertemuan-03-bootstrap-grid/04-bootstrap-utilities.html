@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bootstrap Utilities</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .demo-box {
+        background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+        border: 2px dashed #6c757d;
+        padding: 20px;
+        margin: 10px 0;
+        border-radius: 8px;
+        text-align: center;
+      }
+      .demo-section {
+        margin: 40px 0;
+        padding: 25px;
+        border-left: 5px solid #0d6efd;
+        background-color: #f8f9fa;
+        border-radius: 0 8px 8px 0;
+      }
+      .utility-title {
+        color: #0d6efd;
+        margin-bottom: 15px;
+      }
+      .code-example {
+        background-color: #f4f4f4;
+        padding: 12px;
+        border-radius: 5px;
+        margin: 10px 0;
+        font-family: "Courier New", monospace;
+        border-left: 3px solid #28a745;
+        font-size: 14px;
+      }
+      .color-demo {
+        width: 50px;
+        height: 50px;
+        border-radius: 8px;
+        margin: 5px;
+        display: inline-block;
+        border: 2px solid #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .spacing-demo {
+        background-color: #fff3cd;
+        border: 1px solid #ffeaa7;
+        border-radius: 4px;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <header class="bg-primary text-white py-4 mb-4">
+        <div class="container">
+          <h1 class="display-4">
+            <i class="fas fa-magic me-3"></i>Bootstrap Utilities
+          </h1>
+          <p class="lead">Utility classes untuk styling cepat dan responsif</p>
+        </div>
+      </header>
+
+      <div class="container">
+        <!-- SPACING UTILITIES -->
+        <section class="demo-section">
+          <h2 class="utility-title">
+            <i class="fas fa-expand-arrows-alt me-2"></i>Spacing Utilities
+          </h2>
+
+          <h4>Margin & Padding</h4>
+          <p>
+            Format: <code>{property}{sides}-{size}</code> atau
+            <code>{property}{sides}-{breakpoint}-{size}</code>
+          </p>
+
+          <div class="row">
+            <div class="col-md-6">
+              <h5>Margin Examples</h5>
+              <div class="demo-box">
+                <div class="spacing-demo m-0">m-0 (margin: 0)</div>
+              </div>
+              <div class="demo-box">
+                <div class="spacing-demo m-2">m-2 (margin: 0.5rem)</div>
+              </div>
+              <div class="demo-box">
+                <div class="spacing-demo mx-4">
+                  mx-4 (margin-left & right: 1.5rem)
+                </div>
+              </div>
+              <div class="demo-box">
+                <div class="spacing-demo my-3">
+                  my-3 (margin-top & bottom: 1rem)
+                </div>
+              </div>
+              <div class="demo-box">
+                <div class="spacing-demo mt-5">mt-5 (margin-top: 3rem)</div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <h5>Padding Examples</h5>
+              <div class="demo-box">
+                <div class="spacing-demo p-0 bg-info text-white">p-0</div>
+              </div>
+              <div class="demo-box">
+                <div class="spacing-demo p-3 bg-success text-white">p-3</div>
+              </div>
+              <div class="demo-box">
+                <div class="spacing-demo px-4 py-2 bg-warning">px-4 py-2</div>
+              </div>
+              <div class="demo-box">
+                <div class="spacing-demo pt-4 pb-2 bg-danger text-white">
+                  pt-4 pb-2
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="code-example">
+            <!-- Margin -->
+            .m-0 /* margin: 0 */ .m-1 /* margin: 0.25rem */ .m-2 /* margin:
+            0.5rem */ .m-3 /* margin: 1rem */ .m-4 /* margin: 1.5rem */ .m-5 /*
+            margin: 3rem */
+
+            <!-- Margin specific sides -->
+            .mt-3 /* margin-top: 1rem */ .mr-2 /* margin-right: 0.5rem */ .mb-4
+            /* margin-bottom: 1.5rem */ .ml-1 /* margin-left: 0.25rem */ .mx-3
+            /* margin-left & margin-right: 1rem */ .my-2 /* margin-top &
+            margin-bottom: 0.5rem */
+
+            <!-- Padding (same pattern) -->
+            .p-3 /* padding: 1rem */ .px-4 /* padding-left & padding-right:
+            1.5rem */ .py-2 /* padding-top & padding-bottom: 0.5rem */
+          </div>
+        </section>
+
+        <!-- COLOR UTILITIES -->
+        <section class="demo-section">
+          <h2 class="utility-title">
+            <i class="fas fa-palette me-2"></i>Color Utilities
+          </h2>
+
+          <h4>Text Colors</h4>
+          <div class="row">
+            <div class="col-md-6">
+              <p class="text-primary">text-primary</p>
+              <p class="text-secondary">text-secondary</p>
+              <p class="text-success">text-success</p>
+              <p class="text-danger">text-danger</p>
+              <p class="text-warning">text-warning</p>
+              <p class="text-info">text-info</p>
+              <p class="text-dark">text-dark</p>
+              <p class="text-muted">text-muted</p>
+            </div>
+            <div class="col-md-6">
+              <p class="text-light bg-dark p-2">
+                text-light (on dark background)
+              </p>
+              <p class="text-white bg-dark p-2">
+                text-white (on dark background)
+              </p>
+              <p class="text-black-50">text-black-50 (50% opacity)</p>
+              <p class="text-white-50 bg-dark p-2">
+                text-white-50 (50% opacity)
+              </p>
+            </div>
+          </div>
+
+          <h4>Background Colors</h4>
+          <div class="d-flex flex-wrap">
+            <div class="color-demo bg-primary" title="bg-primary"></div>
+            <div class="color-demo bg-secondary" title="bg-secondary"></div>
+            <div class="color-demo bg-success" title="bg-success"></div>
+            <div class="color-demo bg-danger" title="bg-danger"></div>
+            <div class="color-demo bg-warning" title="bg-warning"></div>
+            <div class="color-demo bg-info" title="bg-info"></div>
+            <div class="color-demo bg-light" title="bg-light"></div>
+            <div class="color-demo bg-dark" title="bg-dark"></div>
+          </div>
+
+          <div class="code-example">
+            <!-- Text Colors -->
+            &lt;p class="text-primary"&gt;Primary text&lt;/p&gt; &lt;p
+            class="text-success"&gt;Success text&lt;/p&gt; &lt;p
+            class="text-danger"&gt;Danger text&lt;/p&gt;
+
+            <!-- Background Colors -->
+            &lt;div class="bg-primary text-white p-3"&gt;Primary
+            background&lt;/div&gt; &lt;div class="bg-success text-white
+            p-3"&gt;Success background&lt;/div&gt;
+          </div>
+        </section>
+
+        <!-- DISPLAY UTILITIES -->
+        <section class="demo-section">
+          <h2 class="utility-title">
+            <i class="fas fa-eye me-2"></i>Display Utilities
+          </h2>
+
+          <h4>Display Properties</h4>
+          <div class="demo-box">
+            <div class="d-block bg-primary text-white p-2 mb-2">
+              d-block (display: block)
+            </div>
+            <span class="d-inline bg-success text-white p-2">d-inline</span>
+            <span class="d-inline bg-warning p-2">d-inline</span>
+          </div>
+
+          <div class="demo-box">
+            <div class="d-inline-block bg-info text-white p-2 m-1">
+              d-inline-block
+            </div>
+            <div class="d-inline-block bg-danger text-white p-2 m-1">
+              d-inline-block
+            </div>
+          </div>
+
+          <h4>Visibility</h4>
+          <div class="demo-box">
+            <div class="visible">This is visible</div>
+            <div class="invisible">This is invisible (takes space)</div>
+            <div class="d-none">This is hidden (d-none)</div>
+            <div>Text after hidden element</div>
+          </div>
+
+          <h4>Responsive Display</h4>
+          <div class="demo-box">
+            <div class="d-none d-md-block bg-primary text-white p-2">
+              Hidden on mobile, visible on medium screens and up
+            </div>
+            <div class="d-block d-md-none bg-success text-white p-2">
+              Visible on mobile, hidden on medium screens and up
+            </div>
+          </div>
+
+          <div class="code-example">
+            <!-- Display utilities -->
+            .d-block /* display: block */ .d-inline /* display: inline */
+            .d-inline-block /* display: inline-block */ .d-flex /* display: flex
+            */ .d-none /* display: none */
+
+            <!-- Responsive display -->
+            .d-none .d-md-block /* Hidden on mobile, visible on md+ */ .d-block
+            .d-lg-none /* Visible until lg, then hidden */
+
+            <!-- Visibility -->
+            .visible /* visibility: visible */ .invisible /* visibility: hidden
+            */
+          </div>
+        </section>
+
+        <!-- FLEXBOX UTILITIES -->
+        <section class="demo-section">
+          <h2 class="utility-title">
+            <i class="fas fa-arrows-alt me-2"></i>Flexbox Utilities
+          </h2>
+
+          <h4>Flex Direction</h4>
+          <div class="demo-box">
+            <div class="d-flex flex-row border p-2 mb-2">
+              <div class="bg-primary text-white p-2 m-1">1</div>
+              <div class="bg-success text-white p-2 m-1">2</div>
+              <div class="bg-danger text-white p-2 m-1">3</div>
+            </div>
+            <p><code>d-flex flex-row</code> (default)</p>
+          </div>
+
+          <div class="demo-box">
+            <div
+              class="d-flex flex-column border p-2 mb-2"
+              style="height: 120px"
+            >
+              <div class="bg-primary text-white p-2 m-1">1</div>
+              <div class="bg-success text-white p-2 m-1">2</div>
+              <div class="bg-danger text-white p-2 m-1">3</div>
+            </div>
+            <p><code>d-flex flex-column</code></p>
+          </div>
+
+          <h4>Justify Content</h4>
+          <div class="demo-box">
+            <div class="d-flex justify-content-start border p-2 mb-2">
+              <div class="bg-primary text-white p-2">Start</div>
+            </div>
+            <div class="d-flex justify-content-center border p-2 mb-2">
+              <div class="bg-success text-white p-2">Center</div>
+            </div>
+            <div class="d-flex justify-content-end border p-2 mb-2">
+              <div class="bg-danger text-white p-2">End</div>
+            </div>
+            <div class="d-flex justify-content-between border p-2 mb-2">
+              <div class="bg-info text-white p-2">Between</div>
+              <div class="bg-warning p-2">Between</div>
+            </div>
+          </div>
+
+          <h4>Align Items</h4>
+          <div class="demo-box">
+            <div
+              class="d-flex align-items-start border p-2 mb-2"
+              style="height: 80px"
+            >
+              <div class="bg-primary text-white p-2">Start</div>
+            </div>
+            <div
+              class="d-flex align-items-center border p-2 mb-2"
+              style="height: 80px"
+            >
+              <div class="bg-success text-white p-2">Center</div>
+            </div>
+            <div
+              class="d-flex align-items-end border p-2 mb-2"
+              style="height: 80px"
+            >
+              <div class="bg-danger text-white p-2">End</div>
+            </div>
+          </div>
+
+          <div class="code-example">
+            <!-- Flex utilities -->
+            .d-flex /* display: flex */ .flex-row /* flex-direction: row */
+            .flex-column /* flex-direction: column */
+
+            <!-- Justify content -->
+            .justify-content-start /* justify-content: flex-start */
+            .justify-content-center /* justify-content: center */
+            .justify-content-end /* justify-content: flex-end */
+            .justify-content-between /* justify-content: space-between */
+            .justify-content-around /* justify-content: space-around */
+
+            <!-- Align items -->
+            .align-items-start /* align-items: flex-start */ .align-items-center
+            /* align-items: center */ .align-items-end /* align-items: flex-end
+            */
+          </div>
+        </section>
+
+        <!-- TYPOGRAPHY UTILITIES -->
+        <section class="demo-section">
+          <h2 class="utility-title">
+            <i class="fas fa-font me-2"></i>Typography Utilities
+          </h2>
+
+          <h4>Font Weight & Style</h4>
+          <div class="demo-box">
+            <p class="fw-bold">Bold text (fw-bold)</p>
+            <p class="fw-normal">Normal weight (fw-normal)</p>
+            <p class="fw-light">Light weight (fw-light)</p>
+            <p class="fst-italic">Italic text (fst-italic)</p>
+            <p class="text-decoration-underline">Underlined text</p>
+            <p class="text-decoration-line-through">Line through text</p>
+          </div>
+
+          <h4>Text Alignment</h4>
+          <div class="demo-box">
+            <p class="text-start">Start aligned text (text-start)</p>
+            <p class="text-center">Center aligned text (text-center)</p>
+            <p class="text-end">End aligned text (text-end)</p>
+          </div>
+
+          <h4>Text Transform</h4>
+          <div class="demo-box">
+            <p class="text-lowercase">LOWERCASED TEXT</p>
+            <p class="text-uppercase">uppercased text</p>
+            <p class="text-capitalize">capitalized text</p>
+          </div>
+
+          <h4>Font Size</h4>
+          <div class="demo-box">
+            <p class="fs-1">Font size 1 (fs-1)</p>
+            <p class="fs-2">Font size 2 (fs-2)</p>
+            <p class="fs-3">Font size 3 (fs-3)</p>
+            <p class="fs-4">Font size 4 (fs-4)</p>
+            <p class="fs-5">Font size 5 (fs-5)</p>
+            <p class="fs-6">Font size 6 (fs-6)</p>
+          </div>
+
+          <div class="code-example">
+            <!-- Font weight -->
+            .fw-bold /* font-weight: bold */ .fw-normal /* font-weight: normal
+            */ .fw-light /* font-weight: 300 */
+
+            <!-- Text alignment -->
+            .text-start /* text-align: left */ .text-center /* text-align:
+            center */ .text-end /* text-align: right */
+
+            <!-- Text transform -->
+            .text-lowercase /* text-transform: lowercase */ .text-uppercase /*
+            text-transform: uppercase */ .text-capitalize /* text-transform:
+            capitalize */
+
+            <!-- Font size -->
+            .fs-1 to .fs-6 /* font-size variations */
+          </div>
+        </section>
+
+        <!-- BORDER UTILITIES -->
+        <section class="demo-section">
+          <h2 class="utility-title">
+            <i class="fas fa-border-style me-2"></i>Border Utilities
+          </h2>
+
+          <h4>Border</h4>
+          <div class="demo-box">
+            <div class="d-inline-block m-2 p-3 border">border</div>
+            <div class="d-inline-block m-2 p-3 border-top">border-top</div>
+            <div class="d-inline-block m-2 p-3 border-end">border-end</div>
+            <div class="d-inline-block m-2 p-3 border-bottom">
+              border-bottom
+            </div>
+            <div class="d-inline-block m-2 p-3 border-start">border-start</div>
+          </div>
+
+          <h4>Border Colors</h4>
+          <div class="demo-box">
+            <div class="d-inline-block m-2 p-3 border border-primary">
+              border-primary
+            </div>
+            <div class="d-inline-block m-2 p-3 border border-success">
+              border-success
+            </div>
+            <div class="d-inline-block m-2 p-3 border border-danger">
+              border-danger
+            </div>
+            <div class="d-inline-block m-2 p-3 border border-warning">
+              border-warning
+            </div>
+          </div>
+
+          <h4>Border Radius</h4>
+          <div class="demo-box">
+            <div class="d-inline-block m-2 p-3 bg-primary text-white rounded">
+              rounded
+            </div>
+            <div
+              class="d-inline-block m-2 p-3 bg-success text-white rounded-top"
+            >
+              rounded-top
+            </div>
+            <div
+              class="d-inline-block m-2 p-3 bg-danger text-white rounded-end"
+            >
+              rounded-end
+            </div>
+            <div class="d-inline-block m-2 p-3 bg-warning rounded-circle">
+              circle
+            </div>
+            <div class="d-inline-block m-2 p-3 bg-info text-white rounded-pill">
+              rounded-pill
+            </div>
+          </div>
+
+          <div class="code-example">
+            <!-- Border -->
+            .border /* border: 1px solid #dee2e6 */ .border-top /* border-top:
+            1px solid #dee2e6 */ .border-0 /* border: 0 */
+
+            <!-- Border colors -->
+            .border-primary /* border-color: primary color */ .border-success /*
+            border-color: success color */
+
+            <!-- Border radius -->
+            .rounded /* border-radius: 0.25rem */ .rounded-top /*
+            border-top-left-radius & border-top-right-radius */ .rounded-circle
+            /* border-radius: 50% */ .rounded-pill /* border-radius: 50rem */
+          </div>
+        </section>
+
+        <!-- POSITION UTILITIES -->
+        <section class="demo-section">
+          <h2 class="utility-title">
+            <i class="fas fa-crosshairs me-2"></i>Position Utilities
+          </h2>
+
+          <h4>Position Types</h4>
+          <div class="demo-box position-relative" style="height: 200px">
+            <div
+              class="position-absolute top-0 start-0 bg-primary text-white p-2"
+            >
+              position-absolute top-0 start-0
+            </div>
+            <div
+              class="position-absolute top-0 end-0 bg-success text-white p-2"
+            >
+              position-absolute top-0 end-0
+            </div>
+            <div
+              class="position-absolute bottom-0 start-0 bg-danger text-white p-2"
+            >
+              position-absolute bottom-0 start-0
+            </div>
+            <div class="position-absolute bottom-0 end-0 bg-warning p-2">
+              position-absolute bottom-0 end-0
+            </div>
+            <div
+              class="position-absolute top-50 start-50 translate-middle bg-info text-white p-2"
+            >
+              Centered with translate-middle
+            </div>
+          </div>
+
+          <h4>Sticky Position</h4>
+          <div class="demo-box">
+            <div class="position-sticky top-0 bg-warning p-2 mb-2">
+              This is sticky (position-sticky top-0)
+            </div>
+            <p>Scroll down to see the sticky behavior...</p>
+            <div
+              style="
+                height: 300px;
+                overflow-y: scroll;
+                border: 1px solid #ddd;
+                padding: 10px;
+              "
+            >
+              <div class="position-sticky top-0 bg-primary text-white p-2 mb-2">
+                Sticky header inside scrollable container
+              </div>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+              <p>
+                Sed do eiusmod tempor incididunt ut labore et dolore magna
+                aliqua...
+              </p>
+              <p>Ut enim ad minim veniam, quis nostrud exercitation...</p>
+              <p>Duis aute irure dolor in reprehenderit in voluptate...</p>
+              <p>Excepteur sint occaecat cupidatat non proident...</p>
+              <p>Sunt in culpa qui officia deserunt mollit anim...</p>
+              <p>At vero eos et accusamus et iusto odio dignissimos...</p>
+              <p>Et harum quidem rerum facilis est et expedita...</p>
+            </div>
+          </div>
+
+          <div class="code-example">
+            <!-- Position -->
+            .position-static /* position: static */ .position-relative /*
+            position: relative */ .position-absolute /* position: absolute */
+            .position-fixed /* position: fixed */ .position-sticky /* position:
+            sticky */
+
+            <!-- Position coordinates -->
+            .top-0 /* top: 0 */ .start-0 /* left: 0 */ .end-0 /* right: 0 */
+            .bottom-0 /* bottom: 0 */ .top-50 /* top: 50% */ .start-50 /* left:
+            50% */
+
+            <!-- Transform -->
+            .translate-middle /* transform: translate(-50%, -50%) */
+          </div>
+        </section>
+
+        <!-- RESPONSIVE UTILITIES -->
+        <section class="demo-section">
+          <h2 class="utility-title">
+            <i class="fas fa-mobile-alt me-2"></i>Responsive Utilities
+          </h2>
+
+          <h4>Breakpoint System</h4>
+          <div class="alert alert-info">
+            <strong>Bootstrap Breakpoints:</strong><br />
+            <code>xs</code>: &lt;576px (extra small)<br />
+            <code>sm</code>: ≥576px (small)<br />
+            <code>md</code>: ≥768px (medium)<br />
+            <code>lg</code>: ≥992px (large)<br />
+            <code>xl</code>: ≥1200px (extra large)<br />
+            <code>xxl</code>: ≥1400px (extra extra large)
+          </div>
+
+          <h4>Responsive Examples</h4>
+          <div class="demo-box">
+            <div
+              class="p-2 mb-2 bg-primary text-white d-block d-md-inline-block"
+            >
+              Block on mobile, inline-block on medium+
+            </div>
+            <div
+              class="p-2 mb-2 bg-success text-white text-center text-md-start"
+            >
+              Center text on mobile, start on medium+
+            </div>
+            <div class="p-1 p-md-3 bg-warning">
+              Small padding on mobile, large on medium+
+            </div>
+          </div>
+
+          <div class="code-example">
+            <!-- Responsive display -->
+            .d-none .d-md-block /* Hidden on mobile, visible on md+ */ .d-block
+            .d-lg-none /* Visible until lg, then hidden */
+
+            <!-- Responsive spacing -->
+            .p-1 .p-md-3 /* Small padding on mobile, large on md+ */ .mt-2
+            .mt-lg-5 /* Small margin-top on mobile, large on lg+ */
+
+            <!-- Responsive text alignment -->
+            .text-center .text-md-start /* Center on mobile, start on md+ */
+            .text-start .text-lg-center /* Start until lg, then center */
+
+            <!-- Responsive flexbox -->
+            .flex-column .flex-md-row /* Column on mobile, row on md+ */
+            .justify-content-center .justify-content-lg-between /* Center until
+            lg, then space-between */
+          </div>
+        </section>
+
+        <!-- UTILITY COMBINATIONS -->
+        <section class="demo-section">
+          <h2 class="utility-title">
+            <i class="fas fa-puzzle-piece me-2"></i>Utility Combinations
+          </h2>
+
+          <h4>Card with Utilities</h4>
+          <div class="demo-box">
+            <div
+              class="bg-white border rounded shadow-sm p-4 mx-auto"
+              style="max-width: 400px"
+            >
+              <div class="d-flex align-items-center mb-3">
+                <div
+                  class="bg-primary rounded-circle d-flex align-items-center justify-content-center text-white me-3"
+                  style="width: 50px; height: 50px"
+                >
+                  <i class="fas fa-user"></i>
+                </div>
+                <div>
+                  <h5 class="mb-0 fw-bold">Nazriel Rahman Al'afath</h5>
+                  <small class="text-muted">Web Developer</small>
+                </div>
+              </div>
+              <p class="text-muted mb-3">
+                Creating amazing web experiences with modern technologies.
+              </p>
+              <div class="d-flex justify-content-between">
+                <button class="btn btn-primary btn-sm">Follow</button>
+                <button class="btn btn-outline-secondary btn-sm">
+                  Message
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <h4>Alert with Icon</h4>
+          <div class="demo-box">
+            <div
+              class="alert alert-success d-flex align-items-center"
+              role="alert"
+            >
+              <div class="me-3">
+                <i class="fas fa-check-circle fa-2x"></i>
+              </div>
+              <div>
+                <h5 class="alert-heading mb-1">Success!</h5>
+                <p class="mb-0">Your profile has been updated successfully.</p>
+              </div>
+            </div>
+          </div>
+
+          <h4>Feature Box</h4>
+          <div class="demo-box">
+            <div class="text-center p-4 border rounded bg-light">
+              <div
+                class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                style="width: 80px; height: 80px"
+              >
+                <i class="fas fa-rocket fa-2x"></i>
+              </div>
+              <h4 class="fw-bold text-primary mb-3">Fast Performance</h4>
+              <p class="text-muted mb-0">
+                Lightning fast loading times with optimized code and modern
+                technologies.
+              </p>
+            </div>
+          </div>
+
+          <div class="code-example">
+            <!-- Example: Centered card with shadow -->
+            &lt;div class="bg-white border rounded shadow-sm p-4 mx-auto"
+            style="max-width: 400px;"&gt; &lt;div class="d-flex
+            align-items-center mb-3"&gt; &lt;div class="bg-primary
+            rounded-circle d-flex align-items-center justify-content-center
+            text-white me-3"&gt; &lt;i class="fas fa-user"&gt;&lt;/i&gt;
+            &lt;/div&gt; &lt;div&gt; &lt;h5 class="mb-0 fw-bold"&gt;Nazriel
+            Rahman Al'afath&lt;/h5&gt; &lt;small class="text-muted"&gt;Web
+            Developer&lt;/small&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt;
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      // Add smooth scrolling
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth" });
+          }
+        });
+      });
+
+      // Add tooltip to color demos
+      document.querySelectorAll(".color-demo").forEach((demo) => {
+        demo.addEventListener("mouseenter", function () {
+          this.style.transform = "scale(1.1)";
+          this.style.transition = "transform 0.2s ease";
+        });
+
+        demo.addEventListener("mouseleave", function () {
+          this.style.transform = "scale(1)";
+        });
+      });
+
+      console.log("🎨 Bootstrap Utilities tutorial loaded!");
+      console.log(
+        "Resize your browser window to see responsive utilities in action."
+      );
+    </script>
+  </body>
+</html>

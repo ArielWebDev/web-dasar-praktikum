@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript Data Handling & Local Storage</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .demo-section {
+        margin: 30px 0;
+        padding: 25px;
+        border: 2px solid #e9ecef;
+        border-radius: 15px;
+        background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      .code-block {
+        background-color: #2d3748;
+        color: #e2e8f0;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 15px 0;
+        font-family: "Courier New", monospace;
+        font-size: 14px;
+        border-left: 4px solid #4299e1;
+        overflow-x: auto;
+      }
+      .data-display {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 15px 0;
+        font-family: monospace;
+        white-space: pre-wrap;
+        max-height: 300px;
+        overflow-y: auto;
+      }
+      .json-viewer {
+        background-color: #1a202c;
+        color: #e2e8f0;
+        padding: 15px;
+        border-radius: 8px;
+        font-family: monospace;
+        white-space: pre-wrap;
+        border: 1px solid #4a5568;
+        max-height: 400px;
+        overflow-y: auto;
+      }
+      .storage-item {
+        background: #f7fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 15px;
+        margin: 10px 0;
+        transition: all 0.3s ease;
+      }
+      .storage-item:hover {
+        background: #edf2f7;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      .btn-custom {
+        border-radius: 25px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+      .btn-custom:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+      .stats-card {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        color: white;
+        border-radius: 15px;
+        padding: 20px;
+        text-align: center;
+        margin: 10px 0;
+      }
+      .alert-custom {
+        border-radius: 15px;
+        border: none;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container py-4">
+      <header class="text-center mb-5">
+        <h1 class="display-4 text-primary">💾 Pengelolaan Data JavaScript</h1>
+        <p class="lead text-muted">
+          Local Storage, Session Storage, Array, Object & JSON
+        </p>
+      </header>
+
+      <!-- LOCAL STORAGE DEMO -->
+      <section class="demo-section">
+        <h2 class="text-primary mb-4">
+          <i class="fas fa-database me-2"></i>Manajemen Local Storage
+        </h2>
+        
+        <div class="alert alert-info alert-custom mb-4">
+          <h5><i class="fas fa-info-circle me-2"></i>Apa itu Local Storage?</h5>
+          <p class="mb-0">Local Storage adalah tempat penyimpanan data di browser yang tetap ada meskipun browser ditutup. Data tersimpan hingga dihapus secara manual atau melalui kode JavaScript.</p>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <h4>Tambah Data ke Local Storage</h4>
+            <form id="localStorageForm">
+              <div class="mb-3">
+                <label for="storageKey" class="form-label">Kunci (Key)</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="storageKey"
+                  placeholder="contoh: username"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="storageValue" class="form-label">Nilai (Value)</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="storageValue"
+                  placeholder="contoh: Nazriel Rahman Al'afath"
+                />
+              </div>
+              <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-success btn-custom">
+                  <i class="fas fa-save me-1"></i>Simpan
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-info btn-custom"
+                  onclick="loadStorageData()"
+                >
+                  <i class="fas fa-refresh me-1"></i>Refresh
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-danger btn-custom"
+                  onclick="clearAllStorage()"
+                >
+                  <i class="fas fa-trash me-1"></i>Hapus Semua
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="col-md-6">
+            <h4>Data Tersimpan</h4>
+            <div
+              id="storageDisplay"
+              class="border rounded p-3"
+              style="min-height: 200px; max-height: 300px; overflow-y: auto"
+            >
+              <p class="text-muted">Belum ada data tersimpan</p>
+            </div>
+
+            <div class="stats-card mt-3">
+              <h6>Statistik Storage</h6>
+              <div class="row">
+                <div class="col-6">
+                  <div class="h4" id="storageCount">0</div>
+                  <small>Item Tersimpan</small>
+                </div>
+                <div class="col-6">
+                  <div class="h4" id="storageSize">0</div>
+                  <small>Bytes Terpakai</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <h5>💡 Cara Kerja Local Storage:</h5>
+          <p>• localStorage.setItem('key', 'value') - Menyimpan data dengan pasangan key-value<br>
+          • localStorage.getItem('key') - Mengambil data berdasarkan key<br>
+          • localStorage.removeItem('key') - Menghapus data tertentu<br>
+          • localStorage.clear() - Menghapus semua data</p>
+          
+          // Operasi Dasar Local Storage 
+          localStorage.setItem('key', 'value'); // Simpan data 
+          localStorage.getItem('key'); // Ambil data
+          localStorage.removeItem('key'); // Hapus item tertentu
+          localStorage.clear(); // Hapus semua data 
+          
+          // Cek apakah storage tersedia 
+          if (typeof(Storage) !== "undefined") { 
+            console.log("Local storage didukung"); 
+          } else { 
+            console.log("Local storage tidak didukung"); 
+          } 
+          
+          // Event listener storage (aktif ketika storage berubah di tab lain) 
+          window.addEventListener('storage', function(e) {
+            console.log('Storage berubah:', e.key, e.oldValue, e.newValue); 
+          });
+        </div>
+      </section>
+
+      <!-- ARRAY METHODS DEMO -->
+      <section class="demo-section">
+        <h2 class="text-primary mb-4">
+          <i class="fas fa-list me-2"></i>Operasi Array Interaktif
+        </h2>
+        
+        <div class="alert alert-info alert-custom mb-4">
+          <h5><i class="fas fa-info-circle me-2"></i>Apa itu Array?</h5>
+          <p class="mb-0">Array adalah struktur data yang dapat menyimpan banyak nilai dalam satu variabel. JavaScript menyediakan berbagai method untuk memanipulasi array seperti map, filter, reduce, dll.</p>
+        </div>
+
+        <div class="row">
+          <i class="fas fa-list me-2"></i>Advanced Array Methods
+        </h2>
+
+        <div class="row">
+          <div class="col-md-6">
+            <h4>Operasi Array</h4>
+            <div class="mb-3">
+              <label for="arrayInput" class="form-label"
+                >Tambah Angka ke Array</label
+              >
+              <div class="input-group">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="arrayInput"
+                  placeholder="Masukkan angka"
+                />
+                <button class="btn btn-primary" onclick="addToArray()">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="d-flex gap-2 flex-wrap mb-3">
+              <button
+                class="btn btn-outline-primary btn-sm"
+                onclick="generateRandomArray()"
+              >
+                Array Acak
+              </button>
+              <button
+                class="btn btn-outline-success btn-sm"
+                onclick="sortArray()"
+              >
+                Urutkan
+              </button>
+              <button
+                class="btn btn-outline-info btn-sm"
+                onclick="reverseArray()"
+              >
+                Balik
+              </button>
+              <button
+                class="btn btn-outline-warning btn-sm"
+                onclick="filterEven()"
+              >
+                Filter Genap
+              </button>
+              <button
+                class="btn btn-outline-secondary btn-sm"
+                onclick="clearArray()"
+              >
+                Hapus
+              </button>
+            </div>
+
+            <div class="mb-3">
+              <h6>Operasi Array:</h6>
+              <div class="btn-group-vertical w-100" role="group">
+                <button
+                  class="btn btn-outline-primary btn-sm"
+                  onclick="demonstrateMap()"
+                >
+                  Map (×2)
+                </button>
+                <button
+                  class="btn btn-outline-success btn-sm"
+                  onclick="demonstrateFilter()"
+                >
+                  Filter (>10)
+                </button>
+                <button
+                  class="btn btn-outline-info btn-sm"
+                  onclick="demonstrateReduce()"
+                >
+                  Reduce (Jumlah)
+                </button>
+                <button
+                  class="btn btn-outline-warning btn-sm"
+                  onclick="demonstrateFind()"
+                >
+                  Find (Pertama >50)
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <h4>Array Saat Ini</h4>
+            <div class="data-display" id="arrayDisplay">[]</div>
+
+            <h4>Hasil Operasi</h4>
+            <div class="json-viewer" id="arrayResults">
+              Belum ada operasi yang dilakukan
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <h5>💡 Cara Kerja Array Methods:</h5>
+          <p>• map() - Mengubah setiap elemen array menjadi bentuk baru<br>
+          • filter() - Menyaring elemen yang memenuhi kondisi tertentu<br>
+          • reduce() - Menggabungkan semua elemen menjadi satu nilai<br>
+          • find() - Mencari elemen pertama yang memenuhi kondisi</p>
+          
+          let numbers = [1, 2, 3, 4, 5]; 
+          
+          // Map - transformasi setiap elemen 
+          let doubled = numbers.map(num => num * 2); // Hasil: [2, 4, 6, 8, 10] 
+          
+          // Filter - pilih elemen yang memenuhi kondisi 
+          let evens = numbers.filter(num => num % 2 === 0); // Hasil: [2, 4] 
+          
+          // Reduce - gabungkan semua elemen jadi satu nilai 
+          let sum = numbers.reduce((total, num) => total + num, 0); // Hasil: 15 
+          
+          // Find - ambil elemen pertama yang memenuhi kondisi 
+          let found = numbers.find(num => num > 3); // Hasil: 4 
+          
+          // Some - cek apakah ada elemen yang memenuhi kondisi 
+          let hasEven = numbers.some(num => num % 2 === 0); // Hasil:
+          true // Every - check if all elements meet condition let allPositive =
+          numbers.every(num => num > 0); // Result: true // ForEach - execute
+          function for each element numbers.forEach(num => console.log(num));
+        </div>
+      </section>
+
+      <!-- OBJECT MANIPULATION DEMO -->
+      <section class="demo-section">
+        <h2 class="text-primary mb-4">
+          <i class="fas fa-cube me-2"></i>Manipulasi Object & JSON
+        </h2>
+        
+        <div class="alert alert-info alert-custom mb-4">
+          <h5><i class="fas fa-info-circle me-2"></i>Apa itu Object & JSON?</h5>
+          <p class="mb-0">Object adalah struktur data yang menyimpan pasangan key-value. JSON (JavaScript Object Notation) adalah format text untuk pertukaran data yang mudah dibaca manusia dan komputer.</p>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <h4>Buat Object Siswa</h4>
+            <form id="studentForm">
+              <div class="mb-3">
+                <label for="studentName" class="form-label">Nama</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="studentName"
+                  placeholder="Nama siswa"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="studentAge" class="form-label">Umur</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="studentAge"
+                  placeholder="Umur"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="studentGrade" class="form-label">Nilai</label>
+                <select class="form-control" id="studentGrade">
+                  <option value="">Pilih nilai</option>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="studentSubjects" class="form-label"
+                  >Mata Pelajaran (pisahkan dengan koma)</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="studentSubjects"
+                  placeholder="Matematika, IPA, Bahasa Indonesia"
+                />
+              </div>
+              <button type="submit" class="btn btn-success btn-custom">
+                <i class="fas fa-user-plus me-1"></i>Tambah Siswa
+              </button>
+            </form>
+
+            <div class="mt-4">
+              <h5>Object Operations</h5>
+              <div class="d-flex gap-2 flex-wrap">
+                <button
+                  class="btn btn-info btn-sm"
+                  onclick="demonstrateObjectMethods()"
+                >
+                  Object Methods
+                </button>
+                <button
+                  class="btn btn-warning btn-sm"
+                  onclick="demonstrateDestructuring()"
+                >
+                  Destructuring
+                </button>
+                <button
+                  class="btn btn-primary btn-sm"
+                  onclick="demonstrateSpread()"
+                >
+                  Spread Operator
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <h4>Students Database</h4>
+            <div class="json-viewer" id="studentsDisplay">
+              No students added yet
+            </div>
+
+            <div class="mt-3">
+              <h6>Database Operations</h6>
+              <div class="d-flex gap-2 flex-wrap">
+                <button
+                  class="btn btn-outline-primary btn-sm"
+                  onclick="searchStudents()"
+                >
+                  Search
+                </button>
+                <button
+                  class="btn btn-outline-success btn-sm"
+                  onclick="sortStudents()"
+                >
+                  Sort by Name
+                </button>
+                <button
+                  class="btn btn-outline-info btn-sm"
+                  onclick="filterByGrade()"
+                >
+                  Filter A Grade
+                </button>
+                <button
+                  class="btn btn-outline-warning btn-sm"
+                  onclick="exportToJSON()"
+                >
+                  Export JSON
+                </button>
+                <button
+                  class="btn btn-outline-danger btn-sm"
+                  onclick="clearStudents()"
+                >
+                  Clear All
+                </button>
+              </div>
+            </div>
+
+            <div class="mt-3" id="exportResult"></div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          // Object creation and manipulation 
+          let student = { 
+            name: "Nazriel Rahman Al'afath",
+            age: 20, 
+            subjects: ["Math", "Science"], 
+            grade: "A" 
+          }; 
+          
+          // Object methods 
+          Object.keys(student); // Get all keys 
+          Object.values(student); // Get all values 
+          Object.entries(student); // Get key-value pairs 
+          
+          // Destructuring 
+          const {name, age} = student; // Extract properties 
+          const {name: studentName} = student; // Rename while extracting 
+          
+          // Spread operator 
+          const newStudent = {...student, email: "nazriel.rahman@email.com"}; 
+          
+          // JSON operations 
+          const jsonString = JSON.stringify(student); // Object to JSON 
+          const parsedObject = JSON.parse(jsonString); // JSON to Object 
+          
+          // Dynamic property access 
+          student['newProperty'] = 'value'; 
+          delete student.someProperty; 
+          
+          // Object.assign for merging 
+          const merged = Object.assign({}, student, {newProp: 'value'});
+        </div>
+      </section>
+
+      <!-- SESSION STORAGE & COOKIES DEMO -->
+      <section class="demo-section">
+        <h2 class="text-primary mb-4">
+          <i class="fas fa-clock me-2"></i>Session Storage & Persistensi Data
+        </h2>
+        
+        <div class="alert alert-info alert-custom mb-4">
+          <h5><i class="fas fa-info-circle me-2"></i>Session Storage vs Local Storage</h5>
+          <p class="mb-0">Session Storage menyimpan data hanya selama tab browser terbuka, sedangkan Local Storage menyimpan data sampai dihapus manual. Session Storage hilang ketika tab ditutup.</p>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <h4>Session Storage (Sementara)</h4>
+            <div class="mb-3">
+              <label for="sessionKey" class="form-label">Kunci Session</label>
+              <input
+                type="text"
+                class="form-control"
+                id="sessionKey"
+                placeholder="data_sementara"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="sessionValue" class="form-label">Nilai Session</label>
+              <input
+                type="text"
+                class="form-control"
+                id="sessionValue"
+                placeholder="Nilai sementara"
+              />
+            </div>
+            <div class="d-flex gap-2">
+              <button
+                class="btn btn-primary btn-custom"
+                onclick="saveToSession()"
+              >
+                <i class="fas fa-save me-1"></i>Simpan ke Session
+              </button>
+              <button
+                class="btn btn-info btn-custom"
+                onclick="loadSessionData()"
+              >
+                <i class="fas fa-sync me-1"></i>Muat Session
+              </button>
+            </div>
+
+            <div class="alert alert-info alert-custom mt-3">
+              <i class="fas fa-info-circle me-2"></i>
+              <strong>Session Storage:</strong> Data bertahan hanya selama sesi browser. 
+              Data hilang ketika tab ditutup.
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <h4>Backup & Restore Data</h4>
+            <div class="mb-3">
+              <label for="backupName" class="form-label">Nama Backup</label>
+              <input
+                type="text"
+                class="form-control"
+                id="backupName"
+                placeholder="backup_saya"
+              />
+            </div>
+            <div class="d-flex gap-2 mb-3">
+              <button
+                class="btn btn-success btn-custom"
+                onclick="createBackup()"
+              >
+                <i class="fas fa-download me-1"></i>Create Backup
+              </button>
+              <button
+                class="btn btn-warning btn-custom"
+                onclick="restoreBackup()"
+              >
+                <i class="fas fa-upload me-1"></i>Restore Backup
+              </button>
+            </div>
+
+            <h6>Available Backups</h6>
+            <div
+              id="backupsList"
+              class="border rounded p-3"
+              style="min-height: 100px; max-height: 200px; overflow-y: auto"
+            >
+              <p class="text-muted">No backups created yet</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-12">
+            <h4>Session Data</h4>
+            <div id="sessionDisplay" class="json-viewer">No session data</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          // Session Storage (temporary, cleared when tab closes)
+          sessionStorage.setItem('key', 'value'); // Save to session
+          sessionStorage.getItem('key'); // Get from session
+          sessionStorage.removeItem('key'); // Remove from session
+          sessionStorage.clear(); // Clear all session data // Storage size
+          calculation function getStorageSize(storage) { let total = 0; for (let
+          key in storage) { if (storage.hasOwnProperty(key)) { total +=
+          storage[key].length + key.length; } } return total; } // Export/Import
+          data function exportData() { const data = {}; for (let i = 0; i <
+          localStorage.length; i++) { const key = localStorage.key(i); data[key]
+          = localStorage.getItem(key); } return JSON.stringify(data, null, 2); }
+          function importData(jsonString) { const data = JSON.parse(jsonString);
+          Object.keys(data).forEach(key => { localStorage.setItem(key,
+          data[key]); }); }
+        </div>
+      </section>
+
+      <!-- DATA VALIDATION & TRANSFORMATION -->
+      <section class="demo-section">
+        <h2 class="text-primary mb-4">
+          <i class="fas fa-shield-alt me-2"></i>Validasi & Transformasi Data
+        </h2>
+        
+        <div class="alert alert-info alert-custom mb-4">
+          <h5><i class="fas fa-info-circle me-2"></i>Pentingnya Validasi Data</h5>
+          <p class="mb-0">Validasi data memastikan bahwa input yang diterima sesuai format yang diharapkan. Ini mencegah error dan meningkatkan keamanan aplikasi.</p>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <h4>Validasi Data</h4>
+            <form id="validationForm">
+              <div class="mb-3">
+                <label for="emailInput" class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="emailInput"
+                  placeholder="pengguna@example.com"
+                />
+                <div class="invalid-feedback" id="emailFeedback"></div>
+              </div>
+              <div class="mb-3">
+                <label for="phoneInput" class="form-label">Phone Number</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="phoneInput"
+                  placeholder="+62812345678"
+                />
+                <div class="invalid-feedback" id="phoneFeedback"></div>
+              </div>
+              <div class="mb-3">
+                <label for="jsonInput" class="form-label">JSON Data</label>
+                <textarea
+                  class="form-control"
+                  id="jsonInput"
+                  rows="3"
+                  placeholder='{"name": "Nazriel Rahman Al\'afath", "age": 25}'
+                ></textarea>
+                <div class="invalid-feedback" id="jsonFeedback"></div>
+              </div>
+              <button type="submit" class="btn btn-primary btn-custom">
+                <i class="fas fa-check me-1"></i>Validate Data
+              </button>
+            </form>
+          </div>
+
+          <div class="col-md-6">
+            <h4>Data Transformation</h4>
+            <div class="mb-3">
+              <label for="transformInput" class="form-label">Raw Data</label>
+              <textarea
+                class="form-control"
+                id="transformInput"
+                rows="4"
+                placeholder="Enter data to transform"
+              ></textarea>
+            </div>
+            <div class="d-flex gap-2 flex-wrap mb-3">
+              <button
+                class="btn btn-outline-primary btn-sm"
+                onclick="transformToUpperCase()"
+              >
+                UPPERCASE
+              </button>
+              <button
+                class="btn btn-outline-success btn-sm"
+                onclick="transformToLowerCase()"
+              >
+                lowercase
+              </button>
+              <button
+                class="btn btn-outline-info btn-sm"
+                onclick="transformToTitle()"
+              >
+                Title Case
+              </button>
+              <button
+                class="btn btn-outline-warning btn-sm"
+                onclick="transformToSlug()"
+              >
+                slug-case
+              </button>
+              <button
+                class="btn btn-outline-secondary btn-sm"
+                onclick="cleanWhitespace()"
+              >
+                Clean Spaces
+              </button>
+            </div>
+
+            <h6>Transformed Result</h6>
+            <div id="transformResult" class="data-display">
+              Original data will appear here
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          // Data validation functions function isValidEmail(email) { const
+          emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; return
+          emailRegex.test(email); } function isValidPhone(phone) { const
+          phoneRegex = /^[\+]?[1-9][\d]{0,15}$/; return
+          phoneRegex.test(phone.replace(/[\s\-\(\)]/g, '')); } function
+          isValidJSON(jsonString) { try { JSON.parse(jsonString); return true; }
+          catch (e) { return false; } } // Data transformation functions
+          function toTitleCase(str) { return str.replace(/\w\S*/g, (txt) =>
+          txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase() ); }
+          function toSlugCase(str) { return str.toLowerCase()
+          .replace(/[^\w\s-]/g, '') .replace(/[\s_-]+/g, '-')
+          .replace(/^-+|-+$/g, ''); } function sanitizeData(data) { if (typeof
+          data === 'string') { return data.trim().replace(/[<>\"']/g, ''); }
+          return data; }
+        </div>
+      </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Global variables
+      let currentArray = [];
+      let studentsDatabase = [];
+
+      // =============================================================================
+      // LOCAL STORAGE FUNCTIONS
+      // =============================================================================
+      document
+        .getElementById("localStorageForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const key = document.getElementById("storageKey").value.trim();
+          const value = document.getElementById("storageValue").value.trim();
+
+          if (key && value) {
+            localStorage.setItem(key, value);
+            loadStorageData();
+
+            // Clear form
+            document.getElementById("storageKey").value = "";
+            document.getElementById("storageValue").value = "";
+
+            showAlert("Data saved to Local Storage!", "success");
+          } else {
+            showAlert("Please fill in both key and value!", "warning");
+          }
+        });
+
+      function loadStorageData() {
+        const display = document.getElementById("storageDisplay");
+        const storageCount = document.getElementById("storageCount");
+        const storageSize = document.getElementById("storageSize");
+
+        if (localStorage.length === 0) {
+          display.innerHTML = '<p class="text-muted">No data stored yet</p>';
+          storageCount.textContent = "0";
+          storageSize.textContent = "0";
+          return;
+        }
+
+        let html = "";
+        let totalSize = 0;
+
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          const value = localStorage.getItem(key);
+          totalSize += key.length + value.length;
+
+          html += `
+                    <div class="storage-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>${key}:</strong> ${value}
+                            </div>
+                            <button class="btn btn-sm btn-outline-danger" onclick="removeStorageItem('${key}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+        }
+
+        display.innerHTML = html;
+        storageCount.textContent = localStorage.length;
+        storageSize.textContent = totalSize;
+      }
+
+      function removeStorageItem(key) {
+        localStorage.removeItem(key);
+        loadStorageData();
+        showAlert(`Removed "${key}" from storage`, "info");
+      }
+
+      function clearAllStorage() {
+        if (confirm("Are you sure you want to clear all stored data?")) {
+          localStorage.clear();
+          loadStorageData();
+          showAlert("All storage data cleared!", "warning");
+        }
+      }
+
+      // =============================================================================
+      // ARRAY METHODS FUNCTIONS
+      // =============================================================================
+      function addToArray() {
+        const input = document.getElementById("arrayInput");
+        const value = parseFloat(input.value);
+
+        if (!isNaN(value)) {
+          currentArray.push(value);
+          updateArrayDisplay();
+          input.value = "";
+          showAlert(`Added ${value} to array`, "success");
+        } else {
+          showAlert("Please enter a valid number", "warning");
+        }
+      }
+
+      function generateRandomArray() {
+        currentArray = Array.from(
+          { length: 10 },
+          () => Math.floor(Math.random() * 100) + 1
+        );
+        updateArrayDisplay();
+        showAlert("Generated random array", "info");
+      }
+
+      function sortArray() {
+        currentArray.sort((a, b) => a - b);
+        updateArrayDisplay();
+        showAlert("Array sorted in ascending order", "success");
+      }
+
+      function reverseArray() {
+        currentArray.reverse();
+        updateArrayDisplay();
+        showAlert("Array reversed", "info");
+      }
+
+      function filterEven() {
+        currentArray = currentArray.filter((num) => num % 2 === 0);
+        updateArrayDisplay();
+        showAlert("Filtered even numbers only", "warning");
+      }
+
+      function clearArray() {
+        currentArray = [];
+        updateArrayDisplay();
+        document.getElementById("arrayResults").textContent =
+          "No operations performed yet";
+        showAlert("Array cleared", "info");
+      }
+
+      function demonstrateMap() {
+        const result = currentArray.map((num) => num * 2);
+        document.getElementById(
+          "arrayResults"
+        ).textContent = `Map (×2): [${currentArray.join(
+          ", "
+        )}] → [${result.join(", ")}]`;
+      }
+
+      function demonstrateFilter() {
+        const result = currentArray.filter((num) => num > 10);
+        document.getElementById(
+          "arrayResults"
+        ).textContent = `Filter (>10): [${currentArray.join(
+          ", "
+        )}] → [${result.join(", ")}]`;
+      }
+
+      function demonstrateReduce() {
+        const result = currentArray.reduce((sum, num) => sum + num, 0);
+        document.getElementById(
+          "arrayResults"
+        ).textContent = `Reduce (sum): [${currentArray.join(
+          ", "
+        )}] → ${result}`;
+      }
+
+      function demonstrateFind() {
+        const result = currentArray.find((num) => num > 50);
+        document.getElementById(
+          "arrayResults"
+        ).textContent = `Find (first >50): [${currentArray.join(", ")}] → ${
+          result || "Not found"
+        }`;
+      }
+
+      function updateArrayDisplay() {
+        document.getElementById(
+          "arrayDisplay"
+        ).textContent = `[${currentArray.join(", ")}]\n\nLength: ${
+          currentArray.length
+        }\nSum: ${currentArray.reduce((a, b) => a + b, 0)}`;
+      }
+
+      // =============================================================================
+      // OBJECT MANIPULATION FUNCTIONS
+      // =============================================================================
+      document
+        .getElementById("studentForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const name = document.getElementById("studentName").value.trim();
+          const age = parseInt(document.getElementById("studentAge").value);
+          const grade = document.getElementById("studentGrade").value;
+          const subjects = document
+            .getElementById("studentSubjects")
+            .value.split(",")
+            .map((s) => s.trim())
+            .filter((s) => s);
+
+          if (name && age && grade && subjects.length > 0) {
+            const student = {
+              id: Date.now(),
+              name,
+              age,
+              grade,
+              subjects,
+              created: new Date().toISOString(),
+            };
+
+            studentsDatabase.push(student);
+            updateStudentsDisplay();
+
+            // Clear form
+            this.reset();
+
+            showAlert(`Student "${name}" added successfully!`, "success");
+          } else {
+            showAlert("Please fill in all required fields!", "warning");
+          }
+        });
+
+      function updateStudentsDisplay() {
+        const display = document.getElementById("studentsDisplay");
+
+        if (studentsDatabase.length === 0) {
+          display.textContent = "No students added yet";
+          return;
+        }
+
+        display.textContent = JSON.stringify(studentsDatabase, null, 2);
+      }
+
+      function searchStudents() {
+        const searchTerm = prompt("Enter student name to search:");
+        if (searchTerm) {
+          const results = studentsDatabase.filter((student) =>
+            student.name.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+
+          document.getElementById(
+            "studentsDisplay"
+          ).textContent = `Search results for "${searchTerm}":\n\n${JSON.stringify(
+            results,
+            null,
+            2
+          )}`;
+        }
+      }
+
+      function sortStudents() {
+        const sorted = [...studentsDatabase].sort((a, b) =>
+          a.name.localeCompare(b.name)
+        );
+        document.getElementById(
+          "studentsDisplay"
+        ).textContent = `Students sorted by name:\n\n${JSON.stringify(
+          sorted,
+          null,
+          2
+        )}`;
+      }
+
+      function filterByGrade() {
+        const aGradeStudents = studentsDatabase.filter(
+          (student) => student.grade === "A"
+        );
+        document.getElementById(
+          "studentsDisplay"
+        ).textContent = `Students with grade A:\n\n${JSON.stringify(
+          aGradeStudents,
+          null,
+          2
+        )}`;
+      }
+
+      function exportToJSON() {
+        const dataStr = JSON.stringify(studentsDatabase, null, 2);
+        const dataBlob = new Blob([dataStr], { type: "application/json" });
+        const url = URL.createObjectURL(dataBlob);
+
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "students_database.json";
+        link.click();
+
+        URL.revokeObjectURL(url);
+
+        document.getElementById("exportResult").innerHTML =
+          '<div class="alert alert-success">Database exported to JSON file!</div>';
+
+        setTimeout(() => {
+          document.getElementById("exportResult").innerHTML = "";
+        }, 3000);
+      }
+
+      function clearStudents() {
+        if (confirm("Are you sure you want to clear all student data?")) {
+          studentsDatabase = [];
+          updateStudentsDisplay();
+          showAlert("All student data cleared!", "warning");
+        }
+      }
+
+      function demonstrateObjectMethods() {
+        if (studentsDatabase.length > 0) {
+          const student = studentsDatabase[0];
+          const result = {
+            "Object.keys()": Object.keys(student),
+            "Object.values()": Object.values(student),
+            "Object.entries()": Object.entries(student),
+          };
+
+          document.getElementById(
+            "studentsDisplay"
+          ).textContent = `Object methods demo:\n\n${JSON.stringify(
+            result,
+            null,
+            2
+          )}`;
+        } else {
+          showAlert("Add a student first to see object methods demo", "info");
+        }
+      }
+
+      function demonstrateDestructuring() {
+        if (studentsDatabase.length > 0) {
+          const student = studentsDatabase[0];
+          const { name, age, grade } = student;
+          const {
+            name: studentName,
+            subjects: [firstSubject],
+          } = student;
+
+          const result = {
+            "Original object": student,
+            "Destructured variables": { name, age, grade },
+            "Renamed destructuring": { studentName, firstSubject },
+          };
+
+          document.getElementById(
+            "studentsDisplay"
+          ).textContent = `Destructuring demo:\n\n${JSON.stringify(
+            result,
+            null,
+            2
+          )}`;
+        } else {
+          showAlert("Add a student first to see destructuring demo", "info");
+        }
+      }
+
+      function demonstrateSpread() {
+        if (studentsDatabase.length > 0) {
+          const student = studentsDatabase[0];
+          const updatedStudent = {
+            ...student,
+            email: "student@email.com",
+            status: "active",
+          };
+          const allStudents = [...studentsDatabase];
+
+          const result = {
+            "Original student": student,
+            "Updated with spread": updatedStudent,
+            "Array with spread": allStudents,
+          };
+
+          document.getElementById(
+            "studentsDisplay"
+          ).textContent = `Spread operator demo:\n\n${JSON.stringify(
+            result,
+            null,
+            2
+          )}`;
+        } else {
+          showAlert("Add a student first to see spread operator demo", "info");
+        }
+      }
+
+      // =============================================================================
+      // SESSION STORAGE FUNCTIONS
+      // =============================================================================
+      function saveToSession() {
+        const key = document.getElementById("sessionKey").value.trim();
+        const value = document.getElementById("sessionValue").value.trim();
+
+        if (key && value) {
+          sessionStorage.setItem(key, value);
+          loadSessionData();
+
+          document.getElementById("sessionKey").value = "";
+          document.getElementById("sessionValue").value = "";
+
+          showAlert("Data saved to Session Storage!", "success");
+        } else {
+          showAlert("Please fill in both key and value!", "warning");
+        }
+      }
+
+      function loadSessionData() {
+        const display = document.getElementById("sessionDisplay");
+
+        if (sessionStorage.length === 0) {
+          display.textContent = "No session data";
+          return;
+        }
+
+        const sessionData = {};
+        for (let i = 0; i < sessionStorage.length; i++) {
+          const key = sessionStorage.key(i);
+          sessionData[key] = sessionStorage.getItem(key);
+        }
+
+        display.textContent = JSON.stringify(sessionData, null, 2);
+      }
+
+      function createBackup() {
+        const backupName = document.getElementById("backupName").value.trim();
+
+        if (!backupName) {
+          showAlert("Please enter a backup name!", "warning");
+          return;
+        }
+
+        const backup = {
+          name: backupName,
+          timestamp: new Date().toISOString(),
+          localStorage: {},
+          sessionStorage: {},
+          studentsDatabase: [...studentsDatabase],
+          currentArray: [...currentArray],
+        };
+
+        // Backup localStorage
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          backup.localStorage[key] = localStorage.getItem(key);
+        }
+
+        // Backup sessionStorage
+        for (let i = 0; i < sessionStorage.length; i++) {
+          const key = sessionStorage.key(i);
+          backup.sessionStorage[key] = sessionStorage.getItem(key);
+        }
+
+        // Save backup to localStorage with special prefix
+        localStorage.setItem(`backup_${backupName}`, JSON.stringify(backup));
+
+        loadBackupsList();
+        document.getElementById("backupName").value = "";
+
+        showAlert(`Backup "${backupName}" created successfully!`, "success");
+      }
+
+      function restoreBackup() {
+        const backupName = document.getElementById("backupName").value.trim();
+
+        if (!backupName) {
+          showAlert("Please enter a backup name to restore!", "warning");
+          return;
+        }
+
+        const backupData = localStorage.getItem(`backup_${backupName}`);
+
+        if (!backupData) {
+          showAlert(`Backup "${backupName}" not found!`, "danger");
+          return;
+        }
+
+        if (
+          !confirm(
+            `Are you sure you want to restore backup "${backupName}"? This will overwrite current data.`
+          )
+        ) {
+          return;
+        }
+
+        try {
+          const backup = JSON.parse(backupData);
+
+          // Clear current data
+          localStorage.clear();
+          sessionStorage.clear();
+
+          // Restore localStorage (except backups)
+          Object.keys(backup.localStorage).forEach((key) => {
+            if (!key.startsWith("backup_")) {
+              localStorage.setItem(key, backup.localStorage[key]);
+            }
+          });
+
+          // Restore sessionStorage
+          Object.keys(backup.sessionStorage).forEach((key) => {
+            sessionStorage.setItem(key, backup.sessionStorage[key]);
+          });
+
+          // Restore application data
+          studentsDatabase = backup.studentsDatabase || [];
+          currentArray = backup.currentArray || [];
+
+          // Restore backups
+          for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && key.startsWith("backup_")) {
+              const backupItem = localStorage.getItem(key);
+              localStorage.setItem(key, backupItem);
+            }
+          }
+
+          // Update displays
+          loadStorageData();
+          loadSessionData();
+          updateStudentsDisplay();
+          updateArrayDisplay();
+          loadBackupsList();
+
+          showAlert(`Backup "${backupName}" restored successfully!`, "success");
+        } catch (error) {
+          showAlert("Error restoring backup: " + error.message, "danger");
+        }
+      }
+
+      function loadBackupsList() {
+        const backupsList = document.getElementById("backupsList");
+        const backups = [];
+
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (key && key.startsWith("backup_")) {
+            try {
+              const backup = JSON.parse(localStorage.getItem(key));
+              backups.push({
+                key: key,
+                name: backup.name,
+                timestamp: backup.timestamp,
+              });
+            } catch (e) {
+              console.error("Invalid backup data:", key);
+            }
+          }
+        }
+
+        if (backups.length === 0) {
+          backupsList.innerHTML =
+            '<p class="text-muted">No backups created yet</p>';
+          return;
+        }
+
+        backups.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+        let html = "";
+        backups.forEach((backup) => {
+          html += `
+                    <div class="storage-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>${backup.name}</strong><br>
+                                <small class="text-muted">${new Date(
+                                  backup.timestamp
+                                ).toLocaleString()}</small>
+                            </div>
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteBackup('${
+                              backup.key
+                            }')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+        });
+
+        backupsList.innerHTML = html;
+      }
+
+      function deleteBackup(key) {
+        const backupData = localStorage.getItem(key);
+        if (backupData) {
+          const backup = JSON.parse(backupData);
+          if (
+            confirm(`Are you sure you want to delete backup "${backup.name}"?`)
+          ) {
+            localStorage.removeItem(key);
+            loadBackupsList();
+            showAlert(`Backup "${backup.name}" deleted!`, "warning");
+          }
+        }
+      }
+
+      // =============================================================================
+      // DATA VALIDATION FUNCTIONS
+      // =============================================================================
+      document
+        .getElementById("validationForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const email = document.getElementById("emailInput").value.trim();
+          const phone = document.getElementById("phoneInput").value.trim();
+          const jsonText = document.getElementById("jsonInput").value.trim();
+
+          let isValid = true;
+
+          // Validate email
+          if (!isValidEmail(email)) {
+            setValidationError(
+              "emailInput",
+              "emailFeedback",
+              "Please enter a valid email address"
+            );
+            isValid = false;
+          } else {
+            setValidationSuccess("emailInput");
+          }
+
+          // Validate phone
+          if (!isValidPhone(phone)) {
+            setValidationError(
+              "phoneInput",
+              "phoneFeedback",
+              "Please enter a valid phone number"
+            );
+            isValid = false;
+          } else {
+            setValidationSuccess("phoneInput");
+          }
+
+          // Validate JSON
+          if (!isValidJSON(jsonText)) {
+            setValidationError(
+              "jsonInput",
+              "jsonFeedback",
+              "Please enter valid JSON data"
+            );
+            isValid = false;
+          } else {
+            setValidationSuccess("jsonInput");
+          }
+
+          if (isValid) {
+            showAlert("All data is valid!", "success");
+
+            // Save validated data
+            const validatedData = {
+              email,
+              phone,
+              jsonData: JSON.parse(jsonText),
+              timestamp: new Date().toISOString(),
+            };
+
+            localStorage.setItem(
+              "validated_data",
+              JSON.stringify(validatedData)
+            );
+            loadStorageData();
+          }
+        });
+
+      function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      }
+
+      function isValidPhone(phone) {
+        const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+        return phoneRegex.test(phone.replace(/[\s\-\(\)]/g, ""));
+      }
+
+      function isValidJSON(jsonString) {
+        try {
+          JSON.parse(jsonString);
+          return true;
+        } catch (e) {
+          return false;
+        }
+      }
+
+      function setValidationError(inputId, feedbackId, message) {
+        const input = document.getElementById(inputId);
+        const feedback = document.getElementById(feedbackId);
+
+        input.classList.add("is-invalid");
+        input.classList.remove("is-valid");
+        feedback.textContent = message;
+      }
+
+      function setValidationSuccess(inputId) {
+        const input = document.getElementById(inputId);
+        input.classList.add("is-valid");
+        input.classList.remove("is-invalid");
+      }
+
+      // =============================================================================
+      // DATA TRANSFORMATION FUNCTIONS
+      // =============================================================================
+      function transformToUpperCase() {
+        const input = document.getElementById("transformInput").value;
+        const result = input.toUpperCase();
+        document.getElementById("transformResult").textContent = result;
+      }
+
+      function transformToLowerCase() {
+        const input = document.getElementById("transformInput").value;
+        const result = input.toLowerCase();
+        document.getElementById("transformResult").textContent = result;
+      }
+
+      function transformToTitle() {
+        const input = document.getElementById("transformInput").value;
+        const result = toTitleCase(input);
+        document.getElementById("transformResult").textContent = result;
+      }
+
+      function transformToSlug() {
+        const input = document.getElementById("transformInput").value;
+        const result = toSlugCase(input);
+        document.getElementById("transformResult").textContent = result;
+      }
+
+      function cleanWhitespace() {
+        const input = document.getElementById("transformInput").value;
+        const result = input.replace(/\s+/g, " ").trim();
+        document.getElementById("transformResult").textContent = result;
+      }
+
+      function toTitleCase(str) {
+        return str.replace(
+          /\w\S*/g,
+          (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+        );
+      }
+
+      function toSlugCase(str) {
+        return str
+          .toLowerCase()
+          .replace(/[^\w\s-]/g, "")
+          .replace(/[\s_-]+/g, "-")
+          .replace(/^-+|-+$/g, "");
+      }
+
+      // =============================================================================
+      // UTILITY FUNCTIONS
+      // =============================================================================
+      function showAlert(message, type) {
+        const alertDiv = document.createElement("div");
+        alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+        alertDiv.style.cssText =
+          "top: 20px; right: 20px; z-index: 1050; min-width: 300px;";
+        alertDiv.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+
+        document.body.appendChild(alertDiv);
+
+        // Auto remove after 3 seconds
+        setTimeout(() => {
+          if (alertDiv.parentNode) {
+            alertDiv.remove();
+          }
+        }, 3000);
+      }
+
+      // Initialize data on page load
+      document.addEventListener("DOMContentLoaded", function () {
+        loadStorageData();
+        loadSessionData();
+        loadBackupsList();
+        updateArrayDisplay();
+        updateStudentsDisplay();
+
+        // Set initial transform result
+        document.getElementById("transformResult").textContent =
+          "Original data will appear here";
+
+        console.log("💾 Data Handling tutorial loaded!");
+        console.log("Try different storage operations and data manipulations.");
+      });
+    </script>
+  </body>
+</html>

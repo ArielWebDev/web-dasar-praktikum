@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM Manipulation dengan JavaScript</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+        line-height: 1.6;
+      }
+      .code-block {
+        background-color: #f4f4f4;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 10px 0;
+        font-family: "Courier New", monospace;
+        border-left: 4px solid #2196f3;
+      }
+      .demo-section {
+        border: 2px solid #ddd;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+      }
+      .demo-section h3 {
+        margin-top: 0;
+        color: #2196f3;
+      }
+      button {
+        background-color: #2196f3;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 5px;
+        font-size: 14px;
+      }
+      button:hover {
+        background-color: #1976d2;
+      }
+      .btn-danger {
+        background-color: #f44336;
+      }
+      .btn-danger:hover {
+        background-color: #d32f2f;
+      }
+      .btn-success {
+        background-color: #4caf50;
+      }
+      .btn-success:hover {
+        background-color: #45a049;
+      }
+      .btn-warning {
+        background-color: #ff9800;
+      }
+      .btn-warning:hover {
+        background-color: #f57c00;
+      }
+      .highlight {
+        background-color: yellow;
+        padding: 5px;
+        border-radius: 3px;
+      }
+      .hidden {
+        display: none;
+      }
+      .styled-box {
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 2px solid #ddd;
+      }
+      input,
+      select {
+        padding: 8px;
+        margin: 5px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+      }
+      .output-box {
+        background-color: #e8f5e8;
+        padding: 15px;
+        border-left: 4px solid #4caf50;
+        margin: 10px 0;
+        border-radius: 5px;
+      }
+      .error-box {
+        background-color: #ffebee;
+        padding: 15px;
+        border-left: 4px solid #f44336;
+        margin: 10px 0;
+        border-radius: 5px;
+      }
+      .info-box {
+        background-color: #e3f2fd;
+        padding: 15px;
+        border-left: 4px solid #2196f3;
+        margin: 10px 0;
+        border-radius: 5px;
+      }
+      ul li {
+        margin: 5px 0;
+      }
+      .demo-list {
+        list-style-type: none;
+        padding: 0;
+      }
+      .demo-list li {
+        background-color: #f0f0f0;
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 5px;
+        border-left: 4px solid #2196f3;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>DOM Manipulation dengan JavaScript</h1>
+
+    <div class="info-box">
+      <strong>DOM (Document Object Model)</strong> adalah representasi struktur
+      HTML dalam bentuk tree/pohon yang dapat dimanipulasi dengan JavaScript.
+    </div>
+
+    <h2>1. Memilih Elemen (DOM Selection)</h2>
+
+    <div class="code-block">
+      // Memilih elemen berdasarkan ID let element =
+      document.getElementById('myId'); // Memilih elemen berdasarkan class let
+      elements = document.getElementsByClassName('myClass'); // Memilih elemen
+      berdasarkan tag let paragraphs = document.getElementsByTagName('p'); //
+      Modern selectors (lebih fleksibel) let element =
+      document.querySelector('#myId'); // ID let element =
+      document.querySelector('.myClass'); // Class let element =
+      document.querySelector('p'); // Tag let elements =
+      document.querySelectorAll('.myClass'); // Semua elemen dengan class
+    </div>
+
+    <div class="demo-section">
+      <h3>Demo: Memilih Elemen</h3>
+      <p id="demo-paragraph" class="demo-text">
+        Ini adalah paragraf untuk demo selection.
+      </p>
+      <p class="demo-text">Ini adalah paragraf kedua dengan class yang sama.</p>
+      <p class="demo-text">
+        Ini adalah paragraf ketiga dengan class yang sama.
+      </p>
+
+      <button onclick="selectById()">Select By ID</button>
+      <button onclick="selectByClass()">Select By Class</button>
+      <button onclick="selectByQuerySelector()">
+        Select with querySelector
+      </button>
+      <button onclick="selectAll()">Select All dengan class</button>
+
+      <div id="selection-output" class="output-box" style="display: none"></div>
+    </div>
+
+    <h2>2. Mengubah Konten Elemen</h2>
+
+    <div class="code-block">
+      // innerHTML - mengubah HTML content element.innerHTML =
+      "&lt;strong&gt;Teks tebal&lt;/strong&gt;"; // textContent - mengubah text
+      content (tanpa HTML) element.textContent = "Teks biasa"; // innerText -
+      mengubah text yang terlihat element.innerText = "Teks yang terlihat";
+    </div>
+
+    <div class="demo-section">
+      <h3>Demo: Mengubah Konten</h3>
+      <div id="content-demo" class="styled-box">
+        Konten awal yang akan diubah
+      </div>
+
+      <button onclick="changeInnerHTML()">Ubah dengan innerHTML</button>
+      <button onclick="changeTextContent()">Ubah dengan textContent</button>
+      <button onclick="changeInnerText()">Ubah dengan innerText</button>
+      <button onclick="resetContent()">Reset Konten</button>
+    </div>
+
+    <h2>3. Mengubah Atribut</h2>
+
+    <div class="code-block">
+      // Mengubah atribut element.setAttribute('class', 'new-class');
+      element.setAttribute('src', 'image.jpg'); // Mengambil nilai atribut let
+      className = element.getAttribute('class'); // Menghapus atribut
+      element.removeAttribute('class'); // Properti khusus element.id = 'newId';
+      element.className = 'new-class'; element.src = 'new-image.jpg';
+    </div>
+
+    <div class="demo-section">
+      <h3>Demo: Mengubah Atribut</h3>
+      <img
+        id="demo-image"
+        src="https://via.placeholder.com/200x150/2196F3/FFFFFF?text=Original"
+        alt="Demo Image"
+        class="styled-box"
+      />
+
+      <button onclick="changeImageSource()">Ubah Gambar</button>
+      <button onclick="changeImageAttributes()">Ubah Atribut</button>
+      <button onclick="resetImage()">Reset Gambar</button>
+
+      <div id="attribute-info" class="info-box" style="display: none"></div>
+    </div>
+
+    <h2>4. Mengubah Style/CSS</h2>
+
+    <div class="code-block">
+      // Mengubah style inline element.style.color = 'red';
+      element.style.backgroundColor = 'yellow'; element.style.fontSize = '20px';
+      element.style.display = 'none'; // Mengubah class
+      element.classList.add('new-class'); element.classList.remove('old-class');
+      element.classList.toggle('active');
+      element.classList.contains('existing-class'); // return true/false
+    </div>
+
+    <div class="demo-section">
+      <h3>Demo: Mengubah Style</h3>
+      <div id="style-demo" class="styled-box">
+        Kotak ini akan diubah stylenya dengan JavaScript
+      </div>
+
+      <button onclick="changeColors()">Ubah Warna</button>
+      <button onclick="changeSize()">Ubah Ukuran</button>
+      <button onclick="toggleVisibility()">Toggle Visibility</button>
+      <button onclick="addBorder()">Tambah Border</button>
+      <button onclick="resetStyles()">Reset Style</button>
+    </div>
+
+    <h2>5. Menambah dan Menghapus Elemen</h2>
+
+    <div class="code-block">
+      // Membuat elemen baru let newElement = document.createElement('div');
+      newElement.textContent = 'Elemen baru'; newElement.className = 'new-item';
+      // Menambahkan ke parent parentElement.appendChild(newElement); //
+      Menambahkan sebelum elemen tertentu parentElement.insertBefore(newElement,
+      referenceElement); // Menghapus elemen
+      parentElement.removeChild(childElement); // atau (modern)
+      element.remove();
+    </div>
+
+    <div class="demo-section">
+      <h3>Demo: Menambah dan Menghapus Elemen</h3>
+      <ul id="demo-list" class="demo-list">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+      </ul>
+
+      <input
+        type="text"
+        id="new-item-text"
+        placeholder="Text untuk item baru"
+      />
+      <button onclick="addItem()">Tambah Item</button>
+      <button onclick="removeLastItem()">Hapus Item Terakhir</button>
+      <button onclick="clearAllItems()">Hapus Semua</button>
+      <button onclick="resetList()">Reset List</button>
+    </div>
+
+    <h2>6. Event Handling</h2>
+
+    <div class="code-block">
+      // Menambahkan event listener button.addEventListener('click', function()
+      { console.log('Button diklik!'); }); // Event dengan parameter
+      button.addEventListener('click', function(event) { console.log('Event:',
+      event); event.preventDefault(); // Mencegah default behavior }); // Event
+      types yang umum: // click, mouseover, mouseout, keydown, keyup, // change,
+      input, submit, load, resize
+    </div>
+
+    <div class="demo-section">
+      <h3>Demo: Event Handling</h3>
+      <button id="click-counter-btn">Klik saya! (0)</button>
+      <button id="hover-btn">Hover saya!</button>
+      <input type="text" id="input-demo" placeholder="Ketik sesuatu..." />
+
+      <div id="event-output" class="output-box" style="display: none"></div>
+    </div>
+
+    <h2>7. Form Handling</h2>
+
+    <div class="code-block">
+      // Mengambil nilai form let inputValue =
+      document.getElementById('myInput').value; let selectValue =
+      document.getElementById('mySelect').value; let checkboxChecked =
+      document.getElementById('myCheckbox').checked; // Mengatur nilai form
+      document.getElementById('myInput').value = 'New value';
+      document.getElementById('myCheckbox').checked = true; // Event form
+      form.addEventListener('submit', function(e) { e.preventDefault(); //
+      Mencegah form submit // Proses data form });
+    </div>
+
+    <div class="demo-section">
+      <h3>Demo: Form Handling</h3>
+      <form id="demo-form">
+        <input type="text" id="form-name" placeholder="Nama" required />
+        <input type="email" id="form-email" placeholder="Email" required />
+        <select id="form-category">
+          <option value="">Pilih kategori</option>
+          <option value="siswa">Siswa</option>
+          <option value="guru">Guru</option>
+          <option value="umum">Umum</option>
+        </select>
+        <label>
+          <input type="checkbox" id="form-agree" /> Saya setuju dengan syarat
+          dan ketentuan
+        </label>
+        <button type="submit">Submit</button>
+        <button type="button" onclick="clearForm()">Clear</button>
+      </form>
+
+      <div id="form-output" class="output-box" style="display: none"></div>
+    </div>
+
+    <h2>8. Praktik Kombinasi: Todo List Sederhana</h2>
+
+    <div class="demo-section">
+      <h3>Demo: Todo List dengan DOM Manipulation</h3>
+      <div>
+        <input type="text" id="todo-input" placeholder="Tambah task baru..." />
+        <button onclick="addTodo()">Tambah</button>
+        <button onclick="clearCompleted()">Hapus Selesai</button>
+        <button onclick="clearAllTodos()">Hapus Semua</button>
+      </div>
+
+      <ul id="todo-list" class="demo-list" style="margin-top: 15px">
+        <!-- Todo items akan ditambahkan di sini -->
+      </ul>
+
+      <div id="todo-stats" class="info-box" style="display: none"></div>
+    </div>
+
+    <h2>9. Navigasi DOM Tree</h2>
+
+    <div class="code-block">
+      // Parent element let parent = element.parentElement; let parentNode =
+      element.parentNode; // Child elements let children = element.children; //
+      HTMLCollection let childNodes = element.childNodes; // NodeList (termasuk
+      text nodes) let firstChild = element.firstElementChild; let lastChild =
+      element.lastElementChild; // Sibling elements let nextSibling =
+      element.nextElementSibling; let prevSibling =
+      element.previousElementSibling;
+    </div>
+
+    <div class="demo-section">
+      <h3>Demo: Navigasi DOM Tree</h3>
+      <div id="family-tree">
+        <div class="parent">
+          Parent
+          <div class="child" id="child1">Child 1</div>
+          <div class="child" id="child2">Child 2 (Target)</div>
+          <div class="child" id="child3">Child 3</div>
+        </div>
+      </div>
+
+      <button onclick="highlightParent()">Highlight Parent</button>
+      <button onclick="highlightSiblings()">Highlight Siblings</button>
+      <button onclick="highlightChildren()">Highlight All Children</button>
+      <button onclick="clearHighlights()">Clear Highlights</button>
+
+      <div id="navigation-info" class="info-box" style="display: none"></div>
+    </div>
+
+    <script>
+      // =============================================================================
+      // 1. DEMO: DOM SELECTION
+      // =============================================================================
+      function selectById() {
+        const element = document.getElementById("demo-paragraph");
+        const output = document.getElementById("selection-output");
+
+        element.style.backgroundColor = "yellow";
+        output.innerHTML = `
+                <strong>getElementById():</strong><br>
+                Selected element: ${element.tagName} with id "${element.id}"<br>
+                Text content: "${element.textContent}"
+            `;
+        output.style.display = "block";
+
+        console.log("Selected by ID:", element);
+      }
+
+      function selectByClass() {
+        const elements = document.getElementsByClassName("demo-text");
+        const output = document.getElementById("selection-output");
+
+        // Reset styles
+        for (let elem of elements) {
+          elem.style.backgroundColor = "";
+        }
+
+        // Highlight first element
+        if (elements.length > 0) {
+          elements[0].style.backgroundColor = "lightblue";
+        }
+
+        output.innerHTML = `
+                <strong>getElementsByClassName():</strong><br>
+                Found ${elements.length} elements with class "demo-text"<br>
+                First element highlighted in blue
+            `;
+        output.style.display = "block";
+
+        console.log("Selected by class:", elements);
+      }
+
+      function selectByQuerySelector() {
+        const element = document.querySelector(".demo-text");
+        const output = document.getElementById("selection-output");
+
+        // Reset all styles first
+        const allElements = document.querySelectorAll(".demo-text");
+        allElements.forEach((elem) => (elem.style.backgroundColor = ""));
+
+        element.style.backgroundColor = "lightgreen";
+
+        output.innerHTML = `
+                <strong>querySelector():</strong><br>
+                Selected first element with class "demo-text"<br>
+                Element highlighted in green
+            `;
+        output.style.display = "block";
+
+        console.log("Selected by querySelector:", element);
+      }
+
+      function selectAll() {
+        const elements = document.querySelectorAll(".demo-text");
+        const output = document.getElementById("selection-output");
+
+        elements.forEach((elem, index) => {
+          elem.style.backgroundColor = `hsl(${index * 60}, 70%, 80%)`;
+        });
+
+        output.innerHTML = `
+                <strong>querySelectorAll():</strong><br>
+                Selected ${elements.length} elements with class "demo-text"<br>
+                Each element highlighted with different color
+            `;
+        output.style.display = "block";
+
+        console.log("Selected all elements:", elements);
+      }
+
+      // =============================================================================
+      // 2. DEMO: MENGUBAH KONTEN
+      // =============================================================================
+      function changeInnerHTML() {
+        const element = document.getElementById("content-demo");
+        element.innerHTML =
+          '<strong>Konten HTML</strong> dengan <em>formatting</em> dan <a href="#">link</a>';
+      }
+
+      function changeTextContent() {
+        const element = document.getElementById("content-demo");
+        element.textContent = "Konten text biasa tanpa HTML formatting";
+      }
+
+      function changeInnerText() {
+        const element = document.getElementById("content-demo");
+        element.innerText =
+          "Konten dengan innerText\n(newline akan ditampilkan)";
+      }
+
+      function resetContent() {
+        const element = document.getElementById("content-demo");
+        element.innerHTML = "Konten awal yang akan diubah";
+      }
+
+      // =============================================================================
+      // 3. DEMO: MENGUBAH ATRIBUT
+      // =============================================================================
+      function changeImageSource() {
+        const image = document.getElementById("demo-image");
+        image.src =
+          "https://via.placeholder.com/200x150/4CAF50/FFFFFF?text=Changed";
+        image.alt = "Gambar telah diubah";
+
+        const info = document.getElementById("attribute-info");
+        info.innerHTML = `
+                <strong>Atribut diubah:</strong><br>
+                src: ${image.src}<br>
+                alt: ${image.alt}
+            `;
+        info.style.display = "block";
+      }
+
+      function changeImageAttributes() {
+        const image = document.getElementById("demo-image");
+        image.setAttribute("title", "Gambar dengan title baru");
+        image.setAttribute("width", "250");
+        image.setAttribute("height", "180");
+
+        const info = document.getElementById("attribute-info");
+        info.innerHTML = `
+                <strong>Atribut ditambahkan:</strong><br>
+                title: ${image.getAttribute("title")}<br>
+                width: ${image.getAttribute("width")}<br>
+                height: ${image.getAttribute("height")}
+            `;
+        info.style.display = "block";
+      }
+
+      function resetImage() {
+        const image = document.getElementById("demo-image");
+        image.src =
+          "https://via.placeholder.com/200x150/2196F3/FFFFFF?text=Original";
+        image.alt = "Demo Image";
+        image.removeAttribute("title");
+        image.removeAttribute("width");
+        image.removeAttribute("height");
+
+        document.getElementById("attribute-info").style.display = "none";
+      }
+
+      // =============================================================================
+      // 4. DEMO: MENGUBAH STYLE
+      // =============================================================================
+      function changeColors() {
+        const element = document.getElementById("style-demo");
+        element.style.color = "white";
+        element.style.backgroundColor = "#f44336";
+        element.style.transition = "all 0.3s ease";
+      }
+
+      function changeSize() {
+        const element = document.getElementById("style-demo");
+        element.style.fontSize = "24px";
+        element.style.padding = "30px";
+        element.style.fontWeight = "bold";
+      }
+
+      function toggleVisibility() {
+        const element = document.getElementById("style-demo");
+        if (element.style.display === "none") {
+          element.style.display = "block";
+        } else {
+          element.style.display = "none";
+        }
+      }
+
+      function addBorder() {
+        const element = document.getElementById("style-demo");
+        element.style.border = "5px dashed #2196F3";
+        element.style.borderRadius = "15px";
+      }
+
+      function resetStyles() {
+        const element = document.getElementById("style-demo");
+        element.style = ""; // Reset semua inline styles
+        element.className = "styled-box"; // Reset ke class original
+      }
+
+      // =============================================================================
+      // 5. DEMO: MENAMBAH DAN MENGHAPUS ELEMEN
+      // =============================================================================
+      function addItem() {
+        const input = document.getElementById("new-item-text");
+        const list = document.getElementById("demo-list");
+
+        if (input.value.trim() === "") {
+          alert("Silakan masukkan text untuk item baru!");
+          return;
+        }
+
+        const newItem = document.createElement("li");
+        newItem.textContent = input.value;
+        newItem.style.backgroundColor = "#e8f5e8";
+
+        list.appendChild(newItem);
+        input.value = ""; // Clear input
+
+        console.log("Item baru ditambahkan:", newItem);
+      }
+
+      function removeLastItem() {
+        const list = document.getElementById("demo-list");
+        const lastItem = list.lastElementChild;
+
+        if (lastItem) {
+          list.removeChild(lastItem);
+          console.log("Item terakhir dihapus");
+        } else {
+          alert("Tidak ada item untuk dihapus!");
+        }
+      }
+
+      function clearAllItems() {
+        const list = document.getElementById("demo-list");
+        list.innerHTML = "";
+        console.log("Semua item dihapus");
+      }
+
+      function resetList() {
+        const list = document.getElementById("demo-list");
+        list.innerHTML = `
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+            `;
+        console.log("List direset ke kondisi awal");
+      }
+
+      // =============================================================================
+      // 6. DEMO: EVENT HANDLING
+      // =============================================================================
+      let clickCount = 0;
+
+      // Event listeners
+      document.addEventListener("DOMContentLoaded", function () {
+        // Click counter
+        const clickBtn = document.getElementById("click-counter-btn");
+        clickBtn.addEventListener("click", function () {
+          clickCount++;
+          this.textContent = `Klik saya! (${clickCount})`;
+
+          const output = document.getElementById("event-output");
+          output.innerHTML = `<strong>Click Event:</strong> Button diklik ${clickCount} kali`;
+          output.style.display = "block";
+        });
+
+        // Hover events
+        const hoverBtn = document.getElementById("hover-btn");
+        hoverBtn.addEventListener("mouseover", function () {
+          this.style.backgroundColor = "#4CAF50";
+          this.textContent = "Mouse Over!";
+        });
+
+        hoverBtn.addEventListener("mouseout", function () {
+          this.style.backgroundColor = "#2196F3";
+          this.textContent = "Hover saya!";
+        });
+
+        // Input events
+        const inputDemo = document.getElementById("input-demo");
+        inputDemo.addEventListener("input", function () {
+          const output = document.getElementById("event-output");
+          output.innerHTML = `<strong>Input Event:</strong> Anda mengetik: "${this.value}"`;
+          output.style.display = "block";
+        });
+
+        inputDemo.addEventListener("focus", function () {
+          this.style.backgroundColor = "#e3f2fd";
+        });
+
+        inputDemo.addEventListener("blur", function () {
+          this.style.backgroundColor = "";
+        });
+      });
+
+      // =============================================================================
+      // 7. DEMO: FORM HANDLING
+      // =============================================================================
+      document
+        .getElementById("demo-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault(); // Mencegah form submit
+
+          const name = document.getElementById("form-name").value;
+          const email = document.getElementById("form-email").value;
+          const category = document.getElementById("form-category").value;
+          const agree = document.getElementById("form-agree").checked;
+
+          const output = document.getElementById("form-output");
+
+          if (!agree) {
+            output.innerHTML =
+              '<strong style="color: red;">Error:</strong> Anda harus menyetujui syarat dan ketentuan!';
+            output.style.backgroundColor = "#ffebee";
+            output.style.borderColor = "#f44336";
+          } else {
+            output.innerHTML = `
+                    <strong>Data Form Berhasil Disubmit:</strong><br>
+                    Nama: ${name}<br>
+                    Email: ${email}<br>
+                    Kategori: ${category || "Tidak dipilih"}<br>
+                    Setuju: ${agree ? "Ya" : "Tidak"}
+                `;
+            output.style.backgroundColor = "#e8f5e8";
+            output.style.borderColor = "#4CAF50";
+          }
+
+          output.style.display = "block";
+
+          console.log("Form data:", { name, email, category, agree });
+        });
+
+      function clearForm() {
+        document.getElementById("demo-form").reset();
+        document.getElementById("form-output").style.display = "none";
+      }
+
+      // =============================================================================
+      // 8. DEMO: TODO LIST
+      // =============================================================================
+      let todoCounter = 1;
+
+      function addTodo() {
+        const input = document.getElementById("todo-input");
+        const todoList = document.getElementById("todo-list");
+
+        if (input.value.trim() === "") {
+          alert("Silakan masukkan task!");
+          return;
+        }
+
+        const todoItem = document.createElement("li");
+        todoItem.innerHTML = `
+                <span class="todo-text">${input.value}</span>
+                <button onclick="toggleTodo(this)" style="margin-left: 10px; background-color: #4CAF50;">✓</button>
+                <button onclick="deleteTodo(this)" style="margin-left: 5px; background-color: #f44336;">✗</button>
+            `;
+        todoItem.id = `todo-${todoCounter++}`;
+
+        todoList.appendChild(todoItem);
+        input.value = "";
+        updateTodoStats();
+      }
+
+      function toggleTodo(button) {
+        const todoItem = button.parentElement;
+        const todoText = todoItem.querySelector(".todo-text");
+
+        if (todoText.style.textDecoration === "line-through") {
+          todoText.style.textDecoration = "";
+          todoText.style.color = "";
+          todoItem.style.backgroundColor = "";
+          button.textContent = "✓";
+          button.style.backgroundColor = "#4CAF50";
+        } else {
+          todoText.style.textDecoration = "line-through";
+          todoText.style.color = "#888";
+          todoItem.style.backgroundColor = "#f0f0f0";
+          button.textContent = "↻";
+          button.style.backgroundColor = "#ff9800";
+        }
+
+        updateTodoStats();
+      }
+
+      function deleteTodo(button) {
+        const todoItem = button.parentElement;
+        todoItem.remove();
+        updateTodoStats();
+      }
+
+      function clearCompleted() {
+        const todoList = document.getElementById("todo-list");
+        const completedTodos = todoList.querySelectorAll(
+          'li span[style*="line-through"]'
+        );
+
+        completedTodos.forEach((todo) => {
+          todo.parentElement.remove();
+        });
+
+        updateTodoStats();
+      }
+
+      function clearAllTodos() {
+        document.getElementById("todo-list").innerHTML = "";
+        updateTodoStats();
+      }
+
+      function updateTodoStats() {
+        const todoList = document.getElementById("todo-list");
+        const totalTodos = todoList.children.length;
+        const completedTodos = todoList.querySelectorAll(
+          'span[style*="line-through"]'
+        ).length;
+        const activeTodos = totalTodos - completedTodos;
+
+        const stats = document.getElementById("todo-stats");
+
+        if (totalTodos > 0) {
+          stats.innerHTML = `
+                    <strong>Todo Statistics:</strong><br>
+                    Total: ${totalTodos} | Active: ${activeTodos} | Completed: ${completedTodos}
+                `;
+          stats.style.display = "block";
+        } else {
+          stats.style.display = "none";
+        }
+      }
+
+      // =============================================================================
+      // 9. DEMO: NAVIGASI DOM TREE
+      // =============================================================================
+      function highlightParent() {
+        clearHighlights();
+        const child2 = document.getElementById("child2");
+        const parent = child2.parentElement;
+
+        parent.style.backgroundColor = "lightblue";
+        parent.style.border = "3px solid blue";
+
+        const info = document.getElementById("navigation-info");
+        info.innerHTML = `
+                <strong>Parent Element:</strong><br>
+                Tag: ${parent.tagName}<br>
+                Class: ${parent.className}<br>
+                Text content: "${parent.textContent.trim()}"
+            `;
+        info.style.display = "block";
+      }
+
+      function highlightSiblings() {
+        clearHighlights();
+        const child2 = document.getElementById("child2");
+
+        // Previous sibling
+        const prevSibling = child2.previousElementSibling;
+        if (prevSibling) {
+          prevSibling.style.backgroundColor = "lightgreen";
+          prevSibling.style.border = "2px solid green";
+        }
+
+        // Next sibling
+        const nextSibling = child2.nextElementSibling;
+        if (nextSibling) {
+          nextSibling.style.backgroundColor = "lightyellow";
+          nextSibling.style.border = "2px solid orange";
+        }
+
+        // Current element
+        child2.style.backgroundColor = "lightcoral";
+        child2.style.border = "2px solid red";
+
+        const info = document.getElementById("navigation-info");
+        info.innerHTML = `
+                <strong>Siblings Navigation:</strong><br>
+                Previous sibling: ${
+                  prevSibling ? prevSibling.textContent : "None"
+                } (green)<br>
+                Current element: ${child2.textContent} (red)<br>
+                Next sibling: ${
+                  nextSibling ? nextSibling.textContent : "None"
+                } (yellow)
+            `;
+        info.style.display = "block";
+      }
+
+      function highlightChildren() {
+        clearHighlights();
+        const parent = document.querySelector(".parent");
+        const children = parent.children;
+
+        parent.style.backgroundColor = "lightgray";
+        parent.style.border = "3px solid gray";
+
+        Array.from(children).forEach((child, index) => {
+          child.style.backgroundColor = `hsl(${index * 120}, 70%, 80%)`;
+          child.style.border = "2px solid #333";
+        });
+
+        const info = document.getElementById("navigation-info");
+        info.innerHTML = `
+                <strong>Children Elements:</strong><br>
+                Parent has ${children.length} children<br>
+                First child: ${parent.firstElementChild.textContent}<br>
+                Last child: ${parent.lastElementChild.textContent}
+            `;
+        info.style.display = "block";
+      }
+
+      function clearHighlights() {
+        const allElements = document.querySelectorAll("#family-tree *");
+        allElements.forEach((elem) => {
+          elem.style.backgroundColor = "";
+          elem.style.border = "";
+        });
+
+        document.getElementById("navigation-info").style.display = "none";
+      }
+
+      // Log ketika halaman dimuat
+      console.log("🚀 DOM Manipulation demo telah dimuat!");
+      console.log("Silakan coba berbagai demo yang tersedia.");
+    </script>
+  </body>
+</html>

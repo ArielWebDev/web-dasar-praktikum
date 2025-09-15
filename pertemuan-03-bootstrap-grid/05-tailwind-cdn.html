@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengenalan Tailwind CSS via CDN</title>
+    <!-- 1. Memuat Tailwind CSS via CDN -->
+    <!-- Script ini akan meng-scan class di HTML dan men-generate CSS yang dibutuhkan secara real-time -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-8">
+        <h1 class="text-4xl font-bold text-center text-blue-700 mb-2">Selamat Datang di Tailwind CSS!</h1>
+        <p class="text-center text-gray-600 mb-8">Membangun Desain Modern Langsung di HTML Anda</p>
+
+        <!-- Section 1: Filosofi Utility-First -->
+        <section class="mb-12 bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">1. Filosofi "Utility-First"</h2>
+            <p class="mb-4">Tidak seperti Bootstrap yang memberikan komponen jadi (seperti `.card` atau `.btn`), Tailwind menyediakan kelas-kelas "utility" tingkat rendah yang masing-masing melakukan satu hal spesifik.</p>
+            <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4" role="alert">
+                <p class="font-bold">Contoh:</p>
+                <ul class="list-disc list-inside mt-2">
+                    <li>`p-4`: Memberi padding sebesar 1rem di semua sisi.</li>
+                    <li>`text-center`: Membuat teks rata tengah.</li>
+                    <li>`font-bold`: Menebalkan teks.</li>
+                    <li>`bg-red-500`: Memberi warna latar belakang merah.</li>
+                </ul>
+            </div>
+            <p class="mt-4">Dengan menggabungkan utility ini, Anda bisa membangun desain kustom tanpa menulis CSS sama sekali.</p>
+        </section>
+
+        <!-- Section 2: Contoh Utility Dasar -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">2. Contoh Utility Dasar dalam Aksi</h2>
+            
+            <!-- Spacing (Padding & Margin) -->
+            <div class="mb-6">
+                <h3 class="text-xl font-medium mb-2">Spacing</h3>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <div class="p-4 bg-green-200 rounded-md">Ini adalah div dengan `p-4` (padding).</div>
+                    <div class="mt-4 ml-8 bg-green-300 p-4 rounded-md">Div ini punya `mt-4` (margin-top) dan `ml-8` (margin-left).</div>
+                </div>
+            </div>
+
+            <!-- Typography -->
+            <div class="mb-6">
+                <h3 class="text-xl font-medium mb-2">Typography</h3>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <p class="text-sm text-gray-600">Teks kecil dan abu-abu (`text-sm text-gray-600`)</p>
+                    <p class="text-base font-semibold text-gray-800">Teks normal tebal (`text-base font-semibold`)</p>
+                    <p class="text-xl italic text-indigo-600">Teks besar, miring, dan berwarna indigo (`text-xl italic text-indigo-600`)</p>
+                    <p class="text-2xl font-extrabold tracking-tight text-gray-900">Teks sangat besar dan tebal (`text-2xl font-extrabold`)</p>
+                </div>
+            </div>
+
+            <!-- Borders & Shadows -->
+            <div>
+                <h3 class="text-xl font-medium mb-2">Borders, Radius, & Shadows</h3>
+                <div class="flex flex-wrap gap-4">
+                    <div class="border-2 border-purple-500 p-4">Border Ungu</div>
+                    <div class="border-2 border-dashed border-gray-400 p-4">Border Dashed</div>
+                    <div class="bg-white p-4 rounded-full">Rounded Full</div>
+                    <div class="bg-white p-4 rounded-lg shadow-lg">Shadow Besar</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 3: Keuntungan Menggunakan CDN -->
+        <section class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">3. Keuntungan & Keterbatasan CDN</h2>
+            <p class="font-semibold text-green-600">Keuntungan:</p>
+            <ul class="list-disc list-inside mb-4">
+                <li>Sangat cepat untuk memulai dan prototyping.</li>
+                <li>Tidak perlu proses build atau instalasi.</li>
+            </ul>
+            <p class="font-semibold text-red-600">Keterbatasan:</p>
+            <ul class="list-disc list-inside">
+                <li>Tidak bisa mengkustomisasi tema default Tailwind (warna, spacing, dll).</li>
+                <li>Tidak bisa menggunakan directive seperti `@apply`.</li>
+                <li>Ukuran file lebih besar karena men-generate CSS di browser.</li>
+            </ul>
+            <p class="mt-4 text-sm text-gray-600">Untuk proyek produksi, disarankan menggunakan Tailwind CLI atau PostCSS untuk performa dan kustomisasi terbaik.</p>
+        </section>
+    </div>
+
+</body>
+</html>

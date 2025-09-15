@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Warna dan Background CSS</title>
+    <link rel="stylesheet" href="04-warna-background.css" />
+  </head>
+  <body>
+    <h1>Belajar Warna dan Background CSS</h1>
+
+    <!-- Text Color -->
+    <div class="section">
+      <h2>Text Color</h2>
+      <p class="color-name">Warna dengan nama (red)</p>
+      <p class="color-hex">Warna dengan hex (#3498db)</p>
+      <p class="color-rgb">Warna dengan RGB (rgb(231, 76, 60))</p>
+      <p class="color-rgba">Warna dengan RGBA (rgba(46, 204, 113, 0.8))</p>
+      <p class="color-hsl">Warna dengan HSL (hsl(291, 64%, 42%))</p>
+    </div>
+
+    <!-- Background Color -->
+    <div class="section">
+      <h2>Background Color</h2>
+      <div class="bg-solid">Background solid color</div>
+      <div class="bg-transparent">Background dengan transparansi</div>
+      <div class="bg-gradient-linear">Background linear gradient</div>
+      <div class="bg-gradient-radial">Background radial gradient</div>
+      <div class="bg-gradient-multiple">Background multiple gradients</div>
+    </div>
+
+    <!-- Background Image -->
+    <div class="section">
+      <h2>Background Image</h2>
+      <div class="bg-image-url">
+        <h3>Background dari URL</h3>
+        <p>Konten di atas background image</p>
+      </div>
+
+      <div class="bg-image-pattern">
+        <h3>Background Pattern</h3>
+        <p>Background dengan pattern berulang</p>
+      </div>
+
+      <div class="bg-image-no-repeat">
+        <h3>Background No Repeat</h3>
+        <p>Background image tanpa pengulangan</p>
+      </div>
+    </div>
+
+    <!-- Background Position -->
+    <div class="section">
+      <h2>Background Position</h2>
+      <div class="bg-position-center">Background position center</div>
+      <div class="bg-position-top-right">Background position top right</div>
+      <div class="bg-position-custom">Background position custom (30% 70%)</div>
+    </div>
+
+    <!-- Background Size -->
+    <div class="section">
+      <h2>Background Size</h2>
+      <div class="bg-size-cover">Background size: cover</div>
+      <div class="bg-size-contain">Background size: contain</div>
+      <div class="bg-size-custom">Background size: 200px 100px</div>
+    </div>
+
+    <!-- Background Attachment -->
+    <div class="section">
+      <h2>Background Attachment</h2>
+      <div class="bg-attachment-scroll">
+        <h3>Background Attachment: Scroll (Default)</h3>
+        <p>Background bergerak mengikuti scroll</p>
+        <div style="height: 300px; overflow-y: scroll; border: 1px solid #ccc">
+          <div style="height: 600px; padding: 20px">
+            <p>Scroll content ini untuk melihat efek background attachment.</p>
+            <p>Background akan bergerak mengikuti scroll.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p>
+              Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
+            <p>Duis aute irure dolor in reprehenderit in voluptate.</p>
+            <p>Excepteur sint occaecat cupidatat non proident.</p>
+            <p>Sunt in culpa qui officia deserunt mollit anim.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-attachment-fixed">
+        <h3>Background Attachment: Fixed</h3>
+        <p>
+          Background tetap saat di-scroll (hanya bekerja pada body/viewport)
+        </p>
+      </div>
+    </div>
+
+    <!-- Multiple Backgrounds -->
+    <div class="section">
+      <h2>Multiple Backgrounds</h2>
+      <div class="bg-multiple">
+        <h3>Multiple Background Layers</h3>
+        <p>Kombinasi beberapa background sekaligus</p>
+      </div>
+    </div>
+
+    <!-- Color Schemes -->
+    <div class="section">
+      <h2>Color Schemes</h2>
+      <div class="color-scheme">
+        <div class="scheme-primary">Primary Color</div>
+        <div class="scheme-secondary">Secondary Color</div>
+        <div class="scheme-success">Success Color</div>
+        <div class="scheme-warning">Warning Color</div>
+        <div class="scheme-danger">Danger Color</div>
+        <div class="scheme-info">Info Color</div>
+        <div class="scheme-light">Light Color</div>
+        <div class="scheme-dark">Dark Color</div>
+      </div>
+    </div>
+
+    <!-- Advanced Color Techniques -->
+    <div class="section">
+      <h2>Advanced Color Techniques</h2>
+      <div class="color-advanced">
+        <div class="hover-color">Hover untuk melihat perubahan warna</div>
+        <div class="shadow-color">Box dengan colored shadow</div>
+        <div class="border-color">Border dengan warna custom</div>
+        <div class="text-gradient">Text dengan gradient color</div>
+      </div>
+    </div>
+  </body>
+</html>

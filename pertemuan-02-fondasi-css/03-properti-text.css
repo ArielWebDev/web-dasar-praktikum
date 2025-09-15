@@ -1,0 +1,274 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+/* Base Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    background: linear-gradient(45deg, #3498db, #2c3e50);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: #34495e;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.section {
+    background-color: white;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* FONT FAMILY EXAMPLES */
+.font-serif {
+    font-family: "Times New Roman", Times, serif;
+}
+
+.font-sans {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.font-mono {
+    font-family: "Courier New", Courier, monospace;
+    background-color: #f8f9fa;
+    padding: 5px;
+}
+
+.font-custom {
+    font-family: 'Roboto', sans-serif;
+    color: #e74c3c;
+}
+
+/* FONT SIZE EXAMPLES */
+.size-small {
+    font-size: 12px;
+}
+
+.size-normal {
+    font-size: 16px;
+}
+
+.size-large {
+    font-size: 24px;
+}
+
+.size-xlarge {
+    font-size: 32px;
+}
+
+.size-em {
+    font-size: 1.5em;
+    /* Relatif terhadap parent element */
+}
+
+.size-rem {
+    font-size: 1.2rem;
+    /* Relatif terhadap root element */
+}
+
+/* FONT WEIGHT EXAMPLES */
+.weight-thin {
+    font-weight: 100;
+}
+
+.weight-normal {
+    font-weight: normal;
+    /* atau 400 */
+}
+
+.weight-bold {
+    font-weight: bold;
+    /* atau 700 */
+}
+
+.weight-bolder {
+    font-weight: bolder;
+}
+
+.weight-900 {
+    font-weight: 900;
+}
+
+/* FONT STYLE EXAMPLES */
+.style-normal {
+    font-style: normal;
+}
+
+.style-italic {
+    font-style: italic;
+}
+
+.style-oblique {
+    font-style: oblique;
+}
+
+/* TEXT DECORATION EXAMPLES */
+.decoration-none {
+    text-decoration: none;
+}
+
+.decoration-underline {
+    text-decoration: underline;
+    text-decoration-color: #3498db;
+}
+
+.decoration-overline {
+    text-decoration: overline;
+    text-decoration-color: #e74c3c;
+}
+
+.decoration-through {
+    text-decoration: line-through;
+    text-decoration-color: #95a5a6;
+}
+
+.decoration-multiple {
+    text-decoration: underline overline;
+    text-decoration-color: #9b59b6;
+}
+
+/* TEXT TRANSFORM EXAMPLES */
+.transform-none {
+    text-transform: none;
+}
+
+.transform-uppercase {
+    text-transform: uppercase;
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.transform-lowercase {
+    text-transform: lowercase;
+    color: #3498db;
+}
+
+.transform-capitalize {
+    text-transform: capitalize;
+    color: #27ae60;
+    font-weight: 600;
+}
+
+/* TEXT ALIGN EXAMPLES */
+.align-left {
+    text-align: left;
+}
+
+.align-center {
+    text-align: center;
+    background-color: #ecf0f1;
+    padding: 10px;
+}
+
+.align-right {
+    text-align: right;
+    background-color: #fdeaa7;
+    padding: 10px;
+}
+
+.align-justify {
+    text-align: justify;
+    background-color: #e8f5e8;
+    padding: 15px;
+    border-left: 4px solid #27ae60;
+}
+
+/* LINE HEIGHT EXAMPLES */
+.line-height-small {
+    line-height: 1.2;
+    background-color: #ffebee;
+    padding: 10px;
+}
+
+.line-height-normal {
+    line-height: 1.6;
+    background-color: #e3f2fd;
+    padding: 10px;
+}
+
+.line-height-large {
+    line-height: 2.0;
+    background-color: #f3e5f5;
+    padding: 10px;
+}
+
+/* LETTER SPACING EXAMPLES */
+.letter-spacing-tight {
+    letter-spacing: -1px;
+    font-weight: bold;
+}
+
+.letter-spacing-normal {
+    letter-spacing: normal;
+}
+
+.letter-spacing-wide {
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #8e44ad;
+}
+
+/* WORD SPACING EXAMPLES */
+.word-spacing-normal {
+    word-spacing: normal;
+}
+
+.word-spacing-wide {
+    word-spacing: 10px;
+    background-color: #fff3e0;
+    padding: 10px;
+}
+
+/* TEXT SHADOW EXAMPLES */
+.shadow-simple {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.shadow-colored {
+    text-shadow: 3px 3px 0px #3498db;
+    color: #2c3e50;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.shadow-multiple {
+    text-shadow:
+        1px 1px 0px #e74c3c,
+        2px 2px 0px #f39c12,
+        3px 3px 0px #f1c40f,
+        4px 4px 0px #27ae60;
+    color: #2c3e50;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.shadow-glow {
+    text-shadow:
+        0 0 5px #3498db,
+        0 0 10px #3498db,
+        0 0 15px #3498db,
+        0 0 20px #3498db;
+    color: #2c3e50;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+}

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bootstrap Grid System</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .demo-col {
+        background-color: #e9ecef;
+        border: 2px solid #6c757d;
+        padding: 15px;
+        margin-bottom: 10px;
+        text-align: center;
+        border-radius: 5px;
+      }
+      .demo-row {
+        margin-bottom: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center text-primary my-5">Bootstrap Grid System</h1>
+
+      <!-- Container Types -->
+      <div class="row demo-row">
+        <div class="col-12">
+          <h2 class="text-success">1. Container Types</h2>
+        </div>
+      </div>
+
+      <div class="container-fluid bg-light p-3 mb-3">
+        <p>
+          <strong>container-fluid:</strong> Full width container (100% lebar
+          layar)
+        </p>
+      </div>
+
+      <div class="container bg-light p-3 mb-4">
+        <p>
+          <strong>container:</strong> Fixed width container dengan max-width
+          yang responsif
+        </p>
+      </div>
+
+      <!-- Basic Grid -->
+      <div class="row demo-row">
+        <div class="col-12">
+          <h2 class="text-success">2. Basic Grid (12 Column System)</h2>
+        </div>
+      </div>
+
+      <div class="row demo-row">
+        <div class="col-12">
+          <div class="demo-col">col-12 (Full Width)</div>
+        </div>
+      </div>
+
+      <div class="row demo-row">
+        <div class="col-6">
+          <div class="demo-col">col-6</div>
+        </div>
+        <div class="col-6">
+          <div class="demo-col">col-6</div>
+        </div>
+      </div>
+
+      <div class="row demo-row">
+        <div class="col-4">
+          <div class="demo-col">col-4</div>
+        </div>
+        <div class="col-4">
+          <div class="demo-col">col-4</div>
+        </div>
+        <div class="col-4">
+          <div class="demo-col">col-4</div>
+        </div>
+      </div>
+
+      <div class="row demo-row">
+        <div class="col-3">
+          <div class="demo-col">col-3</div>
+        </div>
+        <div class="col-3">
+          <div class="demo-col">col-3</div>
+        </div>
+        <div class="col-3">
+          <div class="demo-col">col-3</div>
+        </div>
+        <div class="col-3">
+          <div class="demo-col">col-3</div>
+        </div>
+      </div>
+
+      <!-- Responsive Grid -->
+      <div class="row demo-row">
+        <div class="col-12">
+          <h2 class="text-success">3. Responsive Grid</h2>
+          <p class="text-muted">
+            Resize browser untuk melihat perubahan layout
+          </p>
+        </div>
+      </div>
+
+      <div class="row demo-row">
+        <div class="col-sm-12 col-md-6 col-lg-4">
+          <div class="demo-col">
+            <strong>Responsive Column</strong><br />
+            sm: 12 cols | md: 6 cols | lg: 4 cols
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+          <div class="demo-col">
+            <strong>Responsive Column</strong><br />
+            sm: 12 cols | md: 6 cols | lg: 4 cols
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4">
+          <div class="demo-col">
+            <strong>Responsive Column</strong><br />
+            sm: 12 cols | md: 12 cols | lg: 4 cols
+          </div>
+        </div>
+      </div>
+
+      <!-- Mixed Columns -->
+      <div class="row demo-row">
+        <div class="col-12">
+          <h2 class="text-success">4. Mixed Column Sizes</h2>
+        </div>
+      </div>
+
+      <div class="row demo-row">
+        <div class="col-8">
+          <div class="demo-col">col-8 (Main Content)</div>
+        </div>
+        <div class="col-4">
+          <div class="demo-col">col-4 (Sidebar)</div>
+        </div>
+      </div>
+
+      <div class="row demo-row">
+        <div class="col-2">
+          <div class="demo-col">col-2</div>
+        </div>
+        <div class="col-8">
+          <div class="demo-col">col-8</div>
+        </div>
+        <div class="col-2">
+          <div class="demo-col">col-2</div>
+        </div>
+      </div>
+
+      <!-- Offset Columns -->
+      <div class="row demo-row">
+        <div class="col-12">
+          <h2 class="text-success">5. Offset Columns</h2>
+        </div>
+      </div>
+
+      <div class="row demo-row">
+        <div class="col-4 offset-4">
+          <div class="demo-col">col-4 offset-4 (Centered)</div>
+        </div>
+      </div>
+
+      <div class="row demo-row">
+        <div class="col-6 offset-3">
+          <div class="demo-col">col-6 offset-3 (Centered)</div>
+        </div>
+      </div>
+
+      <!-- Nested Grid -->
+      <div class="row demo-row">
+        <div class="col-12">
+          <h2 class="text-success">6. Nested Grid</h2>
+        </div>
+      </div>
+
+      <div class="row demo-row">
+        <div class="col-8">
+          <div class="demo-col">
+            <strong>Parent Column (col-8)</strong>
+            <div class="row mt-2">
+              <div class="col-6">
+                <div class="bg-warning p-2 rounded">Nested col-6</div>
+              </div>
+              <div class="col-6">
+                <div class="bg-warning p-2 rounded">Nested col-6</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="demo-col">col-4</div>
+        </div>
+      </div>
+
+      <!-- Breakpoint Examples -->
+      <div class="row demo-row">
+        <div class="col-12">
+          <h2 class="text-success">7. Breakpoint Reference</h2>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Breakpoint</th>
+              <th>Class Prefix</th>
+              <th>Screen Size</th>
+              <th>Container Max Width</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Extra Small</td>
+              <td>col-</td>
+              <td>&lt; 576px</td>
+              <td>100%</td>
+            </tr>
+            <tr>
+              <td>Small</td>
+              <td>col-sm-</td>
+              <td>≥ 576px</td>
+              <td>540px</td>
+            </tr>
+            <tr>
+              <td>Medium</td>
+              <td>col-md-</td>
+              <td>≥ 768px</td>
+              <td>720px</td>
+            </tr>
+            <tr>
+              <td>Large</td>
+              <td>col-lg-</td>
+              <td>≥ 992px</td>
+              <td>960px</td>
+            </tr>
+            <tr>
+              <td>Extra Large</td>
+              <td>col-xl-</td>
+              <td>≥ 1200px</td>
+              <td>1140px</td>
+            </tr>
+            <tr>
+              <td>Extra Extra Large</td>
+              <td>col-xxl-</td>
+              <td>≥ 1400px</td>
+              <td>1320px</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Real World Example -->
+      <div class="row demo-row">
+        <div class="col-12">
+          <h2 class="text-success">8. Real World Layout Example</h2>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- Header -->
+        <div class="col-12 mb-3">
+          <div class="bg-dark text-white p-3 text-center rounded">
+            <h4>Website Header</h4>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="col-12 mb-3">
+          <div class="bg-primary text-white p-2 text-center rounded">
+            <strong>Navigation Menu</strong>
+          </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="col-lg-8 col-md-7 mb-3">
+          <div class="bg-light p-4 rounded h-100">
+            <h5>Main Content Area</h5>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+
+            <!-- Sub content in 2 columns -->
+            <div class="row">
+              <div class="col-md-6">
+                <div class="bg-info text-white p-3 rounded mb-2">
+                  <strong>Article 1</strong>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="bg-info text-white p-3 rounded mb-2">
+                  <strong>Article 2</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4 col-md-5 mb-3">
+          <div class="bg-secondary text-white p-4 rounded h-100">
+            <h5>Sidebar</h5>
+            <div class="bg-light text-dark p-2 rounded mb-2">Widget 1</div>
+            <div class="bg-light text-dark p-2 rounded mb-2">Widget 2</div>
+            <div class="bg-light text-dark p-2 rounded">Widget 3</div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="col-12">
+          <div class="bg-dark text-white p-3 text-center rounded">
+            <strong>Website Footer</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tips -->
+      <div class="alert alert-info mt-5" role="alert">
+        <h4 class="alert-heading">💡 Tips Bootstrap Grid:</h4>
+        <ul class="mb-0">
+          <li>
+            <strong>Always use .row and .col together</strong> - Jangan gunakan
+            col tanpa row
+          </li>
+          <li>
+            <strong>Total columns = 12</strong> - Pastikan total column dalam
+            satu row tidak melebihi 12
+          </li>
+          <li>
+            <strong>Mobile First</strong> - Mulai design dari mobile, lalu ke
+            desktop
+          </li>
+          <li>
+            <strong>Use appropriate breakpoints</strong> - Pilih breakpoint
+            sesuai kebutuhan design
+          </li>
+          <li>
+            <strong>Test responsiveness</strong> - Selalu test di berbagai
+            ukuran layar
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Layout Dasar CSS</title>
+    <link rel="stylesheet" href="06-layout-dasar.css" />
+  </head>
+  <body>
+    <h1>Belajar Layout Dasar CSS</h1>
+
+    <!-- Display Property -->
+    <div class="section">
+      <h2>Display Property</h2>
+
+      <h3>Block Elements</h3>
+      <div class="display-block">Div 1 (Block)</div>
+      <div class="display-block">Div 2 (Block)</div>
+      <p>Block elements mengambil full width dan membuat line break.</p>
+
+      <h3>Inline Elements</h3>
+      <span class="display-inline">Span 1 (Inline)</span>
+      <span class="display-inline">Span 2 (Inline)</span>
+      <span class="display-inline">Span 3 (Inline)</span>
+      <p>Inline elements hanya mengambil width sesuai content.</p>
+
+      <h3>Inline-Block Elements</h3>
+      <div class="display-inline-block">Box 1</div>
+      <div class="display-inline-block">Box 2</div>
+      <div class="display-inline-block">Box 3</div>
+      <p>Inline-block menggabungkan sifat inline dan block.</p>
+
+      <h3>None (Hidden)</h3>
+      <div class="display-none">Element ini disembunyikan</div>
+      <p>
+        Element dengan display: none tidak terlihat dan tidak mengambil ruang.
+      </p>
+    </div>
+
+    <!-- Position Property -->
+    <div class="section">
+      <h2>Position Property</h2>
+
+      <h3>Static (Default)</h3>
+      <div class="position-container">
+        <div class="position-static">Position Static</div>
+      </div>
+
+      <h3>Relative</h3>
+      <div class="position-container">
+        <div class="position-relative">
+          Position Relative (bergeser dari posisi asli)
+        </div>
+      </div>
+
+      <h3>Absolute</h3>
+      <div class="position-container relative-parent">
+        <div class="position-absolute">Position Absolute</div>
+        <p>Element dengan position absolute akan keluar dari normal flow.</p>
+      </div>
+
+      <h3>Fixed</h3>
+      <div class="position-fixed">
+        Position Fixed (scroll untuk melihat efek)
+      </div>
+      <p>Element dengan position fixed akan tetap di tempat saat di-scroll.</p>
+
+      <h3>Sticky</h3>
+      <div class="sticky-container">
+        <div class="position-sticky">
+          Position Sticky (scroll container ini)
+        </div>
+        <div class="scroll-content">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <p>
+            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+          <p>Duis aute irure dolor in reprehenderit in voluptate velit esse.</p>
+          <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa.</p>
+          <p>Qui officia deserunt mollit anim id est laborum.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <p>
+            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Float Property -->
+    <div class="section">
+      <h2>Float Property</h2>
+
+      <h3>Float Left</h3>
+      <div class="float-container">
+        <div class="float-left">Float Left</div>
+        <p>
+          Text ini akan mengalir di sebelah kanan element yang di-float left.
+          Float memungkinkan element lain mengalir di sekitarnya. Lorem ipsum
+          dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua.
+        </p>
+      </div>
+
+      <h3>Float Right</h3>
+      <div class="float-container">
+        <div class="float-right">Float Right</div>
+        <p>
+          Text ini akan mengalir di sebelah kiri element yang di-float right.
+          Float adalah cara tradisional untuk membuat layout sebelum adanya
+          Flexbox dan Grid. Lorem ipsum dolor sit amet, consectetur adipiscing
+          elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+          aliqua.
+        </p>
+      </div>
+
+      <h3>Clear Float</h3>
+      <div class="float-container">
+        <div class="float-left">Float Left 1</div>
+        <div class="float-left">Float Left 2</div>
+        <div class="clear-float">Element ini menggunakan clear: both</div>
+        <p>Clear digunakan untuk menghentikan efek float.</p>
+      </div>
+    </div>
+
+    <!-- Z-Index -->
+    <div class="section">
+      <h2>Z-Index (Layering)</h2>
+      <div class="z-index-container">
+        <div class="z-index-1">Z-Index: 1</div>
+        <div class="z-index-2">Z-Index: 2</div>
+        <div class="z-index-3">Z-Index: 3</div>
+      </div>
+      <p>Z-index mengatur urutan layer element. Nilai lebih besar = di atas.</p>
+    </div>
+
+    <!-- Overflow -->
+    <div class="section">
+      <h2>Overflow Property</h2>
+
+      <h3>Overflow Visible (Default)</h3>
+      <div class="overflow-container overflow-visible">
+        <div class="overflow-content">
+          Content yang melebihi ukuran container akan tetap terlihat dengan
+          overflow: visible (default behavior).
+        </div>
+      </div>
+
+      <h3>Overflow Hidden</h3>
+      <div class="overflow-container overflow-hidden">
+        <div class="overflow-content">
+          Content yang melebihi ukuran container akan dipotong dengan overflow:
+          hidden.
+        </div>
+      </div>
+
+      <h3>Overflow Scroll</h3>
+      <div class="overflow-container overflow-scroll">
+        <div class="overflow-content">
+          Content yang melebihi ukuran container dapat di-scroll dengan
+          overflow: scroll. Scrollbar akan selalu muncul.
+        </div>
+      </div>
+
+      <h3>Overflow Auto</h3>
+      <div class="overflow-container overflow-auto">
+        <div class="overflow-content">
+          Content yang melebihi ukuran container dapat di-scroll dengan
+          overflow: auto. Scrollbar hanya muncul jika diperlukan.
+        </div>
+      </div>
+    </div>
+
+    <!-- Flexbox Introduction -->
+    <div class="section">
+      <h2>Flexbox (Modern Layout)</h2>
+
+      <h3>Basic Flexbox</h3>
+      <div class="flex-container">
+        <div class="flex-item">Item 1</div>
+        <div class="flex-item">Item 2</div>
+        <div class="flex-item">Item 3</div>
+      </div>
+
+      <h3>Flex Direction</h3>
+      <div class="flex-container flex-column">
+        <div class="flex-item">Item 1</div>
+        <div class="flex-item">Item 2</div>
+        <div class="flex-item">Item 3</div>
+      </div>
+
+      <h3>Justify Content</h3>
+      <div class="flex-container justify-center">
+        <div class="flex-item">Center</div>
+        <div class="flex-item">Aligned</div>
+      </div>
+
+      <div class="flex-container justify-between">
+        <div class="flex-item">Space</div>
+        <div class="flex-item">Between</div>
+      </div>
+    </div>
+
+    <!-- Practical Layout Examples -->
+    <div class="section">
+      <h2>Contoh Layout Praktis</h2>
+
+      <h3>Two Column Layout</h3>
+      <div class="two-column">
+        <div class="column-left">
+          <h4>Kolom Kiri</h4>
+          <p>Content untuk kolom kiri.</p>
+        </div>
+        <div class="column-right">
+          <h4>Kolom Kanan</h4>
+          <p>Content untuk kolom kanan.</p>
+        </div>
+      </div>
+
+      <h3>Three Column Layout</h3>
+      <div class="three-column">
+        <div class="column">
+          <h4>Kolom 1</h4>
+          <p>Content kolom pertama.</p>
+        </div>
+        <div class="column">
+          <h4>Kolom 2</h4>
+          <p>Content kolom kedua.</p>
+        </div>
+        <div class="column">
+          <h4>Kolom 3</h4>
+          <p>Content kolom ketiga.</p>
+        </div>
+      </div>
+
+      <h3>Header-Content-Footer Layout</h3>
+      <div class="page-layout">
+        <div class="page-header">
+          <h4>Header</h4>
+        </div>
+        <div class="page-content">
+          <h4>Content Area</h4>
+          <p>Main content goes here.</p>
+        </div>
+        <div class="page-footer">
+          <h4>Footer</h4>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content to test fixed positioning -->
+    <div class="section">
+      <h2>Extra Content untuk Test Scroll</h2>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat.
+      </p>
+      <p>
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+      <p>
+        Scroll halaman ini untuk melihat efek position: fixed pada element di
+        atas.
+      </p>
+    </div>
+  </body>
+</html>

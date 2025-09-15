@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menambahkan Bootstrap CDN</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS (opsional) -->
+    <style>
+      .demo-box {
+        background-color: #e9ecef;
+        border: 2px dashed #6c757d;
+        padding: 20px;
+        margin: 10px 0;
+        text-align: center;
+        border-radius: 5px;
+      }
+
+      .highlight-section {
+        background-color: #fff3cd;
+        border: 1px solid #ffeaa7;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center text-primary my-5">Menambahkan Bootstrap CDN</h1>
+
+      <!-- Section: Apa itu Bootstrap CDN -->
+      <div class="highlight-section">
+        <h2 class="text-success">Apa itu Bootstrap CDN?</h2>
+        <p class="lead">
+          CDN (Content Delivery Network) adalah cara tercepat untuk menambahkan
+          Bootstrap ke website tanpa perlu download file.
+        </p>
+
+        <div class="row">
+          <div class="col-md-6">
+            <h4>Keuntungan CDN:</h4>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">✅ Tidak perlu download file</li>
+              <li class="list-group-item">✅ Loading lebih cepat</li>
+              <li class="list-group-item">✅ Selalu versi terbaru</li>
+              <li class="list-group-item">✅ Mudah implementasi</li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h4>Yang Diperlukan:</h4>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">🌐 Koneksi internet</li>
+              <li class="list-group-item">
+                📝 Tag &lt;link&gt; di &lt;head&gt;
+              </li>
+              <li class="list-group-item">
+                📝 Tag &lt;script&gt; sebelum &lt;/body&gt;
+              </li>
+              <li class="list-group-item">📱 Meta viewport tag</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Cara Menambahkan -->
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h3 class="card-title mb-0">Cara Menambahkan Bootstrap CDN</h3>
+        </div>
+        <div class="card-body">
+          <h4>1. Tambahkan CSS Bootstrap di &lt;head&gt;</h4>
+          <div class="demo-box">
+            <code
+              >&lt;link
+              href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+              rel="stylesheet"&gt;</code
+            >
+          </div>
+
+          <h4>2. Tambahkan JavaScript Bootstrap sebelum &lt;/body&gt;</h4>
+          <div class="demo-box">
+            <code
+              >&lt;script
+              src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;</code
+            >
+          </div>
+
+          <h4>3. Pastikan ada Meta Viewport</h4>
+          <div class="demo-box">
+            <code
+              >&lt;meta name="viewport" content="width=device-width,
+              initial-scale=1.0"&gt;</code
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Testing Bootstrap -->
+      <div class="my-5">
+        <h2 class="text-center mb-4">Testing Bootstrap Classes</h2>
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="demo-box">
+              <h5 class="text-info">Typography</h5>
+              <p class="lead">Lead paragraph</p>
+              <p class="text-muted">Muted text</p>
+              <small class="text-secondary">Small text</small>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="demo-box">
+              <h5 class="text-warning">Buttons</h5>
+              <button class="btn btn-primary btn-sm">Primary</button
+              ><br /><br />
+              <button class="btn btn-success">Success</button><br /><br />
+              <button class="btn btn-danger btn-lg">Danger</button>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="demo-box">
+              <h5 class="text-dark">Colors</h5>
+              <span class="badge bg-primary">Primary</span>
+              <span class="badge bg-secondary">Secondary</span>
+              <span class="badge bg-success">Success</span>
+              <span class="badge bg-danger">Danger</span>
+              <span class="badge bg-warning text-dark">Warning</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Bootstrap vs CSS Biasa -->
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header bg-danger text-white">
+              <h4>Tanpa Bootstrap (CSS Manual)</h4>
+            </div>
+            <div class="card-body">
+              <pre class="bg-light p-3 rounded"><code>/* CSS Manual */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.button-primary {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Dan masih banyak lagi... */</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header bg-success text-white">
+              <h4>Dengan Bootstrap</h4>
+            </div>
+            <div class="card-body">
+              <pre
+                class="bg-light p-3 rounded"
+              ><code><!-- HTML dengan Bootstrap -->
+&lt;div class="container"&gt;
+    &lt;button class="btn btn-primary"&gt;
+        Button
+    &lt;/button&gt;
+    &lt;h1 class="text-center"&gt;
+        Centered Text
+    &lt;/h1&gt;
+&lt;/div&gt;
+
+<!-- Tidak perlu CSS tambahan! --></code></pre>
+
+              <div class="alert alert-success mt-3" role="alert">
+                <strong>Keuntungan:</strong> Lebih cepat, konsisten, dan sudah
+                responsive!
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Struktur HTML Template -->
+      <div class="my-5">
+        <h2 class="text-center mb-4">Template HTML Bootstrap Lengkap</h2>
+        <div class="card">
+          <div class="card-body">
+            <pre
+              class="bg-dark text-light p-4 rounded"
+            ><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="id"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Bootstrap Website&lt;/title&gt;
+    
+    &lt;!-- Bootstrap CSS --&gt;
+    &lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="container"&gt;
+        &lt;h1 class="text-center my-5"&gt;Hello Bootstrap!&lt;/h1&gt;
+        &lt;button class="btn btn-primary"&gt;Click Me&lt;/button&gt;
+    &lt;/div&gt;
+    
+    &lt;!-- Bootstrap JavaScript --&gt;
+    &lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Next Steps -->
+      <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">Selanjutnya...</h4>
+        <p>
+          Sekarang Bootstrap sudah berhasil ditambahkan! Di file berikutnya kita
+          akan mempelajari:
+        </p>
+        <hr />
+        <ul class="mb-0">
+          <li>Grid System untuk layout responsif</li>
+          <li>Komponen Navbar untuk navigasi</li>
+          <li>Card component untuk konten</li>
+          <li>Button styles dan variations</li>
+          <li>Utility classes untuk spacing dan colors</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bootstrap JavaScript CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
